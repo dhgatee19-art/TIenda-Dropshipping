@@ -192,7 +192,8 @@
     "faq": {
       "type": "cb-faq",
       "settings": {
-        "color_fondo": "#F3EADD"
+        "color_fondo": "#F3EADD",
+        "boton_url": "/pages/contacto"
       },
       "blocks": {
         "cb-faq-0": {

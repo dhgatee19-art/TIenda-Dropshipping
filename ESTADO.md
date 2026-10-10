@@ -21,7 +21,7 @@
 - [x] Fase 3b — Fotos IA (gpt-image-2): 12 imágenes generadas, gasto aprox. 1,3 $ de 5 $
 - [x] Fase 4 — Secciones propias (prefijo cb-)
 - [~] Fase 5 — Producto asignado (templateSuffix "cb"), galería y descripción OK. Pendiente: políticas legales (panel), página de contacto
-- [~] Fase 6 — Tema subido SIN publicar y auto-revisado (ordenador + móvil, carrito probado). Pendiente: OK del usuario para publicar
+- [x] Fase 6 — Tema PUBLICADO por el usuario (Catboing v1 = live). Push con --allow-live (permiso explícito del usuario).
 
 ## Tema de trabajo
 - ID: 200400142713 ("Catboing v1", sin publicar)
@@ -31,12 +31,12 @@
 - Tema publicado actual: Horizon (195273720185) — se mantiene como copia de seguridad
 
 ## Pendiente del lado del usuario (panel de Shopify)
-- Idioma principal de la tienda = inglés → pago, emails y aviso de cookies salen en inglés. Cambiar a español.
+- [x] Idioma principal: español (cambiado por el usuario).
   (El tema ya muestra sus textos en español: locales/en.default.json lleva las traducciones de es.json.)
 - Título/descripción de la portada en Google = "AuriClean…" (antiguo) → Tienda online → Preferencias.
 - Nombre de la tienda = "CatGravity" (sale en la pestaña) → Configuración → Detalles de la tienda.
-- Menú principal en inglés (Home / Catalog) → Contenido → Menús (o darme permiso de menús).
-- Políticas legales (privacidad, términos, devoluciones, envíos) → Configuración → Políticas.
+- [x] Menú principal en español (Inicio · Catboing · Preguntas frecuentes · Contacto).
+- [x] 6 políticas reescritas para Catboing (base, revisar con un profesional). Páginas Contacto (con formulario) y Sobre nosotros reescritas.
 - Moneda base USD; en la vista previa se ve en MXN (Markets convierte por país).
 
 ## Notas técnicas del entorno en la nube

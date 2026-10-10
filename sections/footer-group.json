@@ -8,8 +8,12 @@
         "nav_1_url": "/",
         "nav_2_url": "/products/juguete-colgante-puerta-gatos",
         "nav_3_url": "/#faq",
-        "nav_4_texto": "Envíos",
-        "nav_4_url": "/policies/shipping-policy"
+        "nav_4_texto": "Contacto",
+        "nav_4_url": "/pages/contacto",
+        "nav_5_texto": "Sobre nosotros",
+        "nav_5_url": "/pages/sobre-nosotros",
+        "legal_extra_texto": "Aviso legal",
+        "legal_extra_url": "/policies/legal-notice"
       }
     }
   },
