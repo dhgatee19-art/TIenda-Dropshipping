@@ -1,0 +1,285 @@
+{%- render 'cb-section-style', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign p = s.producto
+  assign v = p.selected_or_first_available_variant
+  assign url = s.boton_url | default: p.url | default: routes.all_products_collection_url
+-%}
+{% style %}
+  #shopify-section-{{ section.id }} .cb-hero__inner { min-height: {{ s.altura }}vh; }
+  #shopify-section-{{ section.id }} .cb-hero__veil { opacity: {{ s.velo | divided_by: 100.0 }}; }
+  #shopify-section-{{ section.id }} .cb-hero__media img { object-position: {{ s.foco_movil }}% center; }
+  @media (min-width: 990px) { #shopify-section-{{ section.id }} .cb-hero__media img { object-position: center; } }
+{% endstyle %}
+<section class="cb-section cb-hero">
+  <div class="cb-hero__inner">
+    <div class="cb-hero__media" data-cb-parallax="{{ s.parallax }}">
+      {% render 'cb-img', img: s.imagen, fallback: 'cb-hero.jpg', alt: 'Gato saltando para atrapar el ratón Catboing colgado de una puerta', width: 2400, eager: true %}
+    </div>
+    <div class="cb-hero__veil" aria-hidden="true"></div>
+    <div class="cb-hero__content cb-container">
+      <div class="cb-hero__box cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-eyebrow--pill cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h1 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+        {%- if s.mostrar_precio and p != blank -%}
+          <div class="cb-hero__price cb-reveal" style="--cb-i:3">
+            <span class="cb-hero__price-now">{{ v.price | money }}</span>
+            {%- if v.compare_at_price > v.price -%}
+              <span class="cb-hero__price-old">{{ v.compare_at_price | money }}</span>
+              {%- assign ahorro = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+              <span class="cb-hero__save">-{{ ahorro }}%</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if s.boton_texto != blank -%}
+          <div class="cb-reveal" style="--cb-i:4"><a href="{{ url }}" class="cb-btn">{{ s.boton_texto }}{% render 'cb-icon', name: 'flecha' %}</a></div>
+        {%- endif -%}
+        {%- if s.ticks != blank -%}
+          <ul class="cb-hero__ticks cb-reveal" style="--cb-i:5">
+            {%- assign lineas = s.ticks | newline_to_br | split: '<br />' -%}
+            {%- for l in lineas -%}{%- assign t = l | strip -%}{%- if t != blank -%}<li><span class="cb-check">{% render 'cb-icon', name: 'check' %}</span>{{ t }}</li>{%- endif -%}{%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if s.mostrar_badge -%}
+      <div class="cb-hero__badge" aria-hidden="true">
+        <span class="cb-hero__badge-emoji">{{ s.badge_emoji }}</span>
+        <span>{{ s.badge_titulo }}<small>{{ s.badge_sub }}</small></span>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Portada (hero)",
+  "tag": "section",
+  "class": "cb-wrap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagen"
+    },
+    {
+      "type": "image_picker",
+      "id": "imagen",
+      "label": "Imagen de fondo",
+      "info": "Recomendado: horizontal, con el gato a la derecha y espacio libre a la izquierda."
+    },
+    {
+      "type": "range",
+      "id": "foco_movil",
+      "label": "Encuadre en móvil (0 = izquierda, 100 = derecha)",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "altura",
+      "label": "Altura mínima (% de la pantalla)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 85,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "velo",
+      "label": "Intensidad del velo claro detrás del texto",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "parallax",
+      "label": "Efecto de profundidad al bajar",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Textos"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "🐾 El juguete que tu gato no va a soltar"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Tu gato juega solo. <em>Tú, tranquilo.</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto",
+      "default": "Cuelga Catboing del marco de una puerta y mira cómo tu gato salta, persigue y caza su ratón… mientras tú trabajas, cocinas o descansas."
+    },
+    {
+      "type": "header",
+      "content": "Producto y botón"
+    },
+    {
+      "type": "product",
+      "id": "producto",
+      "label": "Producto (para mostrar el precio)"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_precio",
+      "label": "Mostrar precio",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "boton_texto",
+      "label": "Texto del botón",
+      "default": "Lo quiero para mi gato"
+    },
+    {
+      "type": "url",
+      "id": "boton_url",
+      "label": "Enlace del botón",
+      "info": "Si lo dejas vacío, lleva a la página del producto."
+    },
+    {
+      "type": "textarea",
+      "id": "ticks",
+      "label": "Ventajas bajo el botón (una por línea)",
+      "default": "Envío gratis con seguimiento\nSe instala en 1 minuto\nSin pilas ni enchufes"
+    },
+    {
+      "type": "header",
+      "content": "Etiqueta flotante"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_badge",
+      "label": "Mostrar etiqueta flotante",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_emoji",
+      "label": "Emoji",
+      "default": "😼"
+    },
+    {
+      "type": "text",
+      "id": "badge_titulo",
+      "label": "Título",
+      "default": "¡Juega solo!"
+    },
+    {
+      "type": "text",
+      "id": "badge_sub",
+      "label": "Subtítulo",
+      "default": "Tú, libre para lo tuyo"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 19
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Portada (hero)"
+    }
+  ]
+}
+{% endschema %}

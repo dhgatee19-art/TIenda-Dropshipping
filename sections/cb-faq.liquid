@@ -1,0 +1,232 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+{%- assign contacto = 'mailto:' | append: shop.email -%}
+<section class="cb-section cb-faq" id="{{ s.ancla | default: 'faq' | handleize }}" style="scroll-margin-top: 90px">
+  <div class="cb-container">
+    <div class="cb-faq__wrap">
+      <div class="cb-faq__aside cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+        {%- if s.boton_texto != blank -%}
+          <div class="cb-reveal" style="--cb-i:3"><a href="{{ s.boton_url | default: contacto }}" class="cb-btn cb-btn--oscuro">{{ s.boton_texto }}</a></div>
+        {%- endif -%}
+      </div>
+      <div>
+        {%- for block in section.blocks -%}
+          <details class="cb-faq__item cb-reveal" style="--cb-i:{{ forloop.index0 }}" {{ block.shopify_attributes }}{% if forloop.first and s.abrir_primera %} open{% endif %}>
+            <summary>{{ block.settings.pregunta }}</summary>
+            <div class="cb-faq__answer cb-texto">{{ block.settings.respuesta }}</div>
+          </details>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Preguntas",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 16,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Dudas"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Preguntas <em>frecuentes</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto",
+      "default": "¿No encuentras lo que buscas? Escríbenos y te respondemos encantados."
+    },
+    {
+      "type": "text",
+      "id": "boton_texto",
+      "label": "Texto del botón (vacío = sin botón)",
+      "default": "Contactar"
+    },
+    {
+      "type": "url",
+      "id": "boton_url",
+      "label": "Enlace del botón",
+      "info": "Si lo dejas vacío, abre un email a la dirección de la tienda."
+    },
+    {
+      "type": "checkbox",
+      "id": "abrir_primera",
+      "label": "Primera pregunta abierta",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "ancla",
+      "label": "Nombre del ancla (para enlazar con /#nombre)",
+      "default": "faq"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pregunta",
+      "name": "Pregunta",
+      "settings": [
+        {
+          "type": "text",
+          "id": "pregunta",
+          "label": "Pregunta",
+          "default": "¿Pregunta?"
+        },
+        {
+          "type": "richtext",
+          "id": "respuesta",
+          "label": "Respuesta",
+          "default": "<p>Respuesta.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Preguntas",
+      "blocks": [
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Sirve para cualquier puerta?",
+            "respuesta": "<p>El gancho está pensado para marcos de puerta delgados. En marcos gruesos puede quedar justo, así que te recomendamos medir el grosor del marco antes de comprar.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Necesito herramientas para instalarlo?",
+            "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en un minuto.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Es seguro para mi gato?",
+            "respuesta": "<p>Úsalo siempre con tu gato supervisado y guárdalo cuando termine de jugar. Con el uso intenso la cuerda puede desgastarse, así que revísala de vez en cuando.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Puedo colgar otros juguetes?",
+            "respuesta": "<p>Sí. En el otro extremo de la cuerda puedes colgar otros juguetes favoritos de tu gato.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Cuánto tarda el envío?",
+            "respuesta": "<p>El envío es gratis y con número de seguimiento: México 6-11 días hábiles, Chile 7-10, Colombia 8-16 y España 7-14.</p>"
+          }
+        },
+        {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Y si tengo algún problema con mi pedido?",
+            "respuesta": "<p>Escríbenos y lo resolvemos. Puedes consultar todas las condiciones en nuestra <a href=\"/policies/refund-policy\">política de devoluciones</a>.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

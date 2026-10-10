@@ -148,7 +148,6 @@
   }
 
   function init() {
-    document.documentElement.classList.remove('cb-no-js');
     initReveal();
     initParallax();
     initProducto();

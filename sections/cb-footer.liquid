@@ -1,0 +1,286 @@
+{%- assign s = section.settings -%}
+{% style %}
+  #shopify-section-{{ section.id }} { padding-top: {{ s.padding_top }}px; padding-bottom: {{ s.padding_bottom }}px; background: {{ s.color_fondo }}; }
+  #shopify-section-{{ section.id }} .cb-footer { background: {{ s.color_fondo }}; color: {{ s.color_texto }}; font-size: {{ s.body_size }}px; }
+{% endstyle %}
+<footer class="cb-section cb-footer">
+  <div class="cb-container">
+    <div class="cb-footer__grid">
+      <div>
+        {%- if s.logo != blank -%}
+          <img src="{{ s.logo | image_url: width: 600 }}" alt="{{ s.logo.alt | default: shop.name | escape }}" width="{{ s.logo_width }}" height="{{ s.logo_width | divided_by: s.logo.aspect_ratio | round }}" loading="lazy" style="width:{{ s.logo_width }}px;height:auto;margin-bottom:14px">
+        {%- else -%}
+          <div class="cb-footer__logo-text">{{ s.logo_texto }}<span class="cb-acento">{{ s.logo_acento }}</span></div>
+        {%- endif -%}
+        {%- if s.lema != blank -%}<p class="cb-footer__text">{{ s.lema | newline_to_br }}</p>{%- endif -%}
+        {%- if s.instagram != blank or s.tiktok != blank or s.facebook != blank -%}
+          <div class="cb-footer__social">
+            {%- if s.instagram != blank -%}<a href="{{ s.instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{% render 'cb-icon', name: 'instagram' %}</a>{%- endif -%}
+            {%- if s.tiktok != blank -%}<a href="{{ s.tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{% render 'cb-icon', name: 'tiktok' %}</a>{%- endif -%}
+            {%- if s.facebook != blank -%}<a href="{{ s.facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{% render 'cb-icon', name: 'facebook' %}</a>{%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+      <div>
+        <p class="cb-footer__title">{{ s.nav_titulo }}</p>
+        <ul class="cb-footer__links">
+          {%- for i in (1..5) -%}
+            {%- assign k_label = 'nav_' | append: i | append: '_texto' -%}
+            {%- assign k_url = 'nav_' | append: i | append: '_url' -%}
+            {%- if s[k_label] != blank -%}<li><a href="{{ s[k_url] | default: '#' }}">{{ s[k_label] }}</a></li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+      <div>
+        <p class="cb-footer__title">{{ s.ayuda_titulo }}</p>
+        {%- if s.ayuda_texto != blank -%}<p class="cb-footer__text">{{ s.ayuda_texto | newline_to_br }}</p>{%- endif -%}
+        {%- assign email = s.email | default: shop.email -%}
+        {%- if email != blank -%}<p class="cb-footer__text"><a href="mailto:{{ email }}">✉️ {{ email }}</a></p>{%- endif -%}
+      </div>
+    </div>
+    <div class="cb-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ s.logo_texto }}{{ s.logo_acento }}. {{ s.copyright }}</span>
+      <nav class="cb-footer__legal" aria-label="Legal">
+        <a href="/policies/privacy-policy">Privacidad</a>
+        <a href="/policies/terms-of-service">Términos</a>
+        <a href="/policies/refund-policy">Devoluciones</a>
+        <a href="/policies/shipping-policy">Envíos</a>
+        {%- if s.legal_extra_texto != blank -%}<a href="{{ s.legal_extra_url | default: '#' }}">{{ s.legal_extra_texto }}</a>{%- endif -%}
+      </nav>
+      {%- if s.mostrar_pagos -%}
+        <ul class="cb-footer__pagos" aria-label="Métodos de pago">
+          {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}</li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "CB – Pie de página",
+  "tag": "section",
+  "class": "cb-wrap",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Marca"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (imagen; vacío = logo de texto)"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Ancho del logo",
+      "min": 60,
+      "max": 300,
+      "step": 5,
+      "default": 150,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "logo_texto",
+      "label": "Logo de texto: primera parte",
+      "default": "Cat"
+    },
+    {
+      "type": "text",
+      "id": "logo_acento",
+      "label": "Logo de texto: parte en color",
+      "default": "boing"
+    },
+    {
+      "type": "textarea",
+      "id": "lema",
+      "label": "Frase de la marca",
+      "default": "Juguetes que hacen felices a los gatos (y tranquilos a sus humanos)."
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram (enlace)"
+    },
+    {
+      "type": "url",
+      "id": "tiktok",
+      "label": "TikTok (enlace)"
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "Facebook (enlace)"
+    },
+    {
+      "type": "header",
+      "content": "Columna de enlaces"
+    },
+    {
+      "type": "text",
+      "id": "nav_titulo",
+      "label": "Título",
+      "default": "Tienda"
+    },
+    {
+      "type": "text",
+      "id": "nav_1_texto",
+      "label": "Enlace 1: texto",
+      "default": "Inicio"
+    },
+    {
+      "type": "url",
+      "id": "nav_1_url",
+      "label": "Enlace 1: dirección"
+    },
+    {
+      "type": "text",
+      "id": "nav_2_texto",
+      "label": "Enlace 2: texto",
+      "default": "Catboing"
+    },
+    {
+      "type": "url",
+      "id": "nav_2_url",
+      "label": "Enlace 2: dirección"
+    },
+    {
+      "type": "text",
+      "id": "nav_3_texto",
+      "label": "Enlace 3: texto",
+      "default": "Preguntas frecuentes"
+    },
+    {
+      "type": "url",
+      "id": "nav_3_url",
+      "label": "Enlace 3: dirección"
+    },
+    {
+      "type": "text",
+      "id": "nav_4_texto",
+      "label": "Enlace 4: texto",
+      "default": "Contacto"
+    },
+    {
+      "type": "url",
+      "id": "nav_4_url",
+      "label": "Enlace 4: dirección"
+    },
+    {
+      "type": "text",
+      "id": "nav_5_texto",
+      "label": "Enlace 5: texto (vacío = oculto)"
+    },
+    {
+      "type": "url",
+      "id": "nav_5_url",
+      "label": "Enlace 5: dirección"
+    },
+    {
+      "type": "header",
+      "content": "Columna de ayuda"
+    },
+    {
+      "type": "text",
+      "id": "ayuda_titulo",
+      "label": "Título",
+      "default": "¿Necesitas ayuda?"
+    },
+    {
+      "type": "textarea",
+      "id": "ayuda_texto",
+      "label": "Texto",
+      "default": "Escríbenos y te respondemos lo antes posible."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email de contacto (vacío = el de la tienda)"
+    },
+    {
+      "type": "header",
+      "content": "Barra inferior"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Texto tras el copyright",
+      "default": "Todos los derechos reservados."
+    },
+    {
+      "type": "text",
+      "id": "legal_extra_texto",
+      "label": "Enlace legal extra: texto (p. ej. Aviso legal)"
+    },
+    {
+      "type": "url",
+      "id": "legal_extra_url",
+      "label": "Enlace legal extra: dirección"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_pagos",
+      "label": "Mostrar iconos de métodos de pago",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Estilo"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 15,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Texto",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "default": 32,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Pie de página"
+    }
+  ],
+  "enabled_on": {
+    "groups": [
+      "footer"
+    ]
+  }
+}
+{% endschema %}

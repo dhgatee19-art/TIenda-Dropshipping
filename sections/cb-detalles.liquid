@@ -1,0 +1,171 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+<section class="cb-section cb-detalles">
+  <div class="cb-container">
+    <div class="cb-split{% if s.invertido %} cb-split--invertido{% endif %}">
+      <div class="cb-split__media cb-reveal" style="--cb-ratio: 1/1">
+        {% render 'cb-img', img: s.imagen, fallback: 'cb-detalle.jpg', alt: 'Detalle del ratón de peluche Catboing', width: 1200 %}
+      </div>
+      <div class="cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+        {%- if s.specs != blank -%}
+          <ul class="cb-specs cb-reveal cb-texto" style="--cb-i:3">
+            {%- assign lineas = s.specs | newline_to_br | split: '<br />' -%}
+            {%- for l in lineas -%}
+              {%- assign t = l | strip -%}
+              {%- if t != blank -%}
+                {%- assign partes = t | split: '|' -%}
+                <li><span>{{ partes[0] | strip }}</span><span>{{ partes[1] | strip }}</span></li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if s.aviso != blank -%}
+          <div class="cb-aviso cb-reveal cb-texto" style="--cb-i:4"><span class="cb-aviso__icono" aria-hidden="true">📏</span><div>{{ s.aviso | newline_to_br }}</div></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Detalles",
+  "tag": "section",
+  "class": "cb-wrap",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "imagen",
+      "label": "Imagen"
+    },
+    {
+      "type": "checkbox",
+      "id": "invertido",
+      "label": "Imagen a la derecha",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Detalles"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Pequeño, suave y <em>muy resistente al juego</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto"
+    },
+    {
+      "type": "textarea",
+      "id": "specs",
+      "label": "Ficha técnica (una por línea: Nombre | Valor)",
+      "default": "Juguete | Ratón de peluche con cuerda elástica\nCuerda | Unos 180 cm (hasta 380 cm estirada)\nColor | Gris oscuro\nInstalación | En el marco de la puerta\nExtra | Cuelga otros juguetes en el otro extremo"
+    },
+    {
+      "type": "textarea",
+      "id": "aviso",
+      "label": "Aviso destacado (vacío = sin aviso)",
+      "default": "Mide el grosor del marco de tu puerta antes de comprar: el gancho está pensado para marcos delgados y en marcos gruesos puede quedar justo.\nÚsalo siempre con tu gato supervisado y guárdalo al terminar de jugar."
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Detalles"
+    }
+  ]
+}
+{% endschema %}

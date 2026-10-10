@@ -1,0 +1,346 @@
+{%- render 'cb-section-style', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign v = product.selected_or_first_available_variant
+  assign media_sel = v.featured_media | default: product.featured_media
+-%}
+<section class="cb-section cb-producto" data-cb-producto data-money-format="{{ shop.money_format | escape }}" data-add-label="{{ s.boton_texto | escape }}" data-sold-label="{{ s.agotado_texto | escape }}">
+  <div class="cb-container">
+    <div class="cb-producto__grid">
+      {%- comment -%} Galería: sigue a las fotos del catálogo {%- endcomment -%}
+      <div class="cb-galeria-p">
+        <div class="cb-galeria-p__main">
+          {%- if v.compare_at_price > v.price and s.mostrar_descuento -%}
+            {%- assign ahorro = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+            <span class="cb-galeria-p__badge">-{{ ahorro }}%</span>
+          {%- endif -%}
+          {%- if media_sel != blank -%}
+            {%- assign img_main = media_sel.preview_image -%}
+            {%- assign alt_main = media_sel.alt | default: product.title | escape -%}
+            <img data-cb-main-img src="{{ img_main | image_url: width: 1400 }}"
+              srcset="{{ img_main | image_url: width: 700 }} 700w, {{ img_main | image_url: width: 1100 }} 1100w, {{ img_main | image_url: width: 1400 }} 1400w"
+              sizes="(max-width: 989px) 100vw, 55vw" width="1400" height="{{ 1400 | divided_by: img_main.aspect_ratio | round }}"
+              alt="{{ alt_main }}" loading="eager" fetchpriority="high">
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag }}
+          {%- endif -%}
+        </div>
+        {%- if product.media.size > 1 -%}
+          <div class="cb-galeria-p__thumbs" role="list">
+            {%- for m in product.media -%}
+              <button type="button" class="cb-galeria-p__thumb" role="listitem" data-cb-thumb data-media-id="{{ m.id }}"
+                data-src="{{ m.preview_image | image_url: width: 1400 }}"
+                data-srcset="{{ m.preview_image | image_url: width: 700 }} 700w, {{ m.preview_image | image_url: width: 1100 }} 1100w, {{ m.preview_image | image_url: width: 1400 }} 1400w"
+                data-alt="{{ m.alt | default: product.title | escape }}"
+                aria-label="Ver foto {{ forloop.index }}" aria-current="{% if m.id == media_sel.id %}true{% else %}false{% endif %}">
+                {{ m.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Columna de compra {%- endcomment -%}
+      <div class="cb-compra" data-cb-buy-zone>
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+        <h1 class="cb-h1" style="font-size: clamp(28px, 4vw, {{ s.heading_size }}px)">{{ s.titulo_corto | default: product.title }}</h1>
+        <div class="cb-compra__price">
+          <span class="cb-hero__price-now" data-cb-price>{{ v.price | money }}</span>
+          <span class="cb-hero__price-old" data-cb-compare{% unless v.compare_at_price > v.price %} hidden{% endunless %}>{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money }}{% endif %}</span>
+          {%- if v.compare_at_price > v.price and s.mostrar_descuento -%}
+            <span class="cb-hero__save">{{ s.texto_descuento }}</span>
+          {%- endif -%}
+        </div>
+        {%- if s.intro != blank -%}<p class="cb-compra__intro cb-texto">{{ s.intro | newline_to_br }}</p>{%- endif -%}
+        {%- if s.bullets != blank -%}
+          <ul class="cb-compra__bullets cb-texto">
+            {%- assign lineas = s.bullets | newline_to_br | split: '<br />' -%}
+            {%- for l in lineas -%}{%- assign t = l | strip -%}{%- if t != blank -%}<li><span class="cb-check">{% render 'cb-icon', name: 'check' %}</span><span>{{ t }}</span></li>{%- endif -%}{%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- form 'product', product, id: 'cb-form-producto', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ v.id }}">
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign oi = forloop.index0 -%}
+              <fieldset class="cb-opcion" data-cb-option style="border:0;padding:0;margin:0 0 18px">
+                <legend class="cb-opcion__label">{{ option.name }}: <span style="font-weight:600">{{ option.selected_value }}</span></legend>
+                <div class="cb-opcion__values">
+                  {%- for value in option.values -%}
+                    <input type="radio" id="cb-opt-{{ section.id }}-{{ oi }}-{{ forloop.index0 }}" name="cb-opt-{{ oi }}" value="{{ value | escape }}"{% if option.selected_value == value %} checked{% endif %}>
+                    <label for="cb-opt-{{ section.id }}-{{ oi }}-{{ forloop.index0 }}">{{ value }}</label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {%- endfor -%}
+            <script type="application/json" data-cb-variants>
+              [{%- for x in product.variants -%}{"id":{{ x.id }},"available":{{ x.available | json }},"price":{{ x.price }},"compare_at_price":{{ x.compare_at_price | default: 0 }},"options":{{ x.options | json }},"featured_media_id":{{ x.featured_media.id | default: 'null' }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
+            </script>
+          {%- endunless -%}
+
+          {%- if s.mostrar_stock and v.available -%}
+            <p class="cb-compra__stock"><span class="cb-compra__dot" aria-hidden="true"></span>{{ s.stock_texto }}</p>
+          {%- endif -%}
+
+          <div class="cb-compra__row">
+            {%- if s.mostrar_cantidad -%}
+              <div class="cb-cantidad">
+                <button type="button" data-cb-qty-btn="-1" aria-label="Quitar uno">−</button>
+                <input type="number" name="quantity" value="1" min="1" data-cb-qty aria-label="Cantidad">
+                <button type="button" data-cb-qty-btn="1" aria-label="Añadir uno">+</button>
+              </div>
+            {%- endif -%}
+            <button type="submit" name="add" class="cb-btn" data-cb-add{% unless v.available %} disabled{% endunless %}>
+              {%- render 'cb-icon', name: 'carrito' -%}
+              <span data-cb-add-label>{%- if v.available -%}{{ s.boton_texto }}{%- else -%}{{ s.agotado_texto }}{%- endif -%}</span>
+            </button>
+          </div>
+          {%- if s.mostrar_pago_rapido -%}{{ form | payment_button }}{%- endif -%}
+        {%- endform -%}
+
+        {%- if s.confianza != blank -%}
+          <div class="cb-confianza">
+            {%- assign iconos = 'camion,candado,reloj,escudo' | split: ',' -%}
+            {%- assign lineas = s.confianza | newline_to_br | split: '<br />' -%}
+            {%- assign n = 0 -%}
+            {%- for l in lineas -%}{%- assign t = l | strip -%}{%- if t != blank -%}{%- assign i = n | modulo: 4 -%}<div class="cb-confianza__item">{% render 'cb-icon', name: iconos[i] %}{{ t }}</div>{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="cb-acordeon">
+          {%- if s.mostrar_descripcion and product.description != blank -%}
+            <details open><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
+          {%- endif -%}
+          {%- for block in section.blocks -%}
+            <details {{ block.shopify_attributes }}><summary>{{ block.settings.titulo }}</summary><div class="cb-acordeon__body cb-texto">{{ block.settings.texto }}</div></details>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {%- if s.barra_movil -%}
+    <div class="cb-sticky-atc" data-cb-sticky>
+      <div class="cb-sticky-atc__info">{{ s.titulo_corto | default: product.title }}<small data-cb-price>{{ v.price | money }}</small></div>
+      <button type="button" class="cb-btn" data-cb-sticky-submit data-cb-add{% unless v.available %} disabled{% endunless %}><span data-cb-add-label>{%- if v.available -%}{{ s.boton_texto }}{%- else -%}{{ s.agotado_texto }}{%- endif -%}</span></button>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "CB – Producto",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Encabezado"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "🐾 Juguete interactivo para gatos"
+    },
+    {
+      "type": "text",
+      "id": "titulo_corto",
+      "label": "Título visible (vacío = título del catálogo)",
+      "default": "Catboing™ – Juguete colgante de puerta"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_descuento",
+      "label": "Mostrar etiqueta de descuento",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "texto_descuento",
+      "label": "Texto de la etiqueta de descuento",
+      "default": "Oferta de lanzamiento"
+    },
+    {
+      "type": "header",
+      "content": "Texto de venta"
+    },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Introducción",
+      "default": "Cuélgalo del marco de una puerta y tu gato tendrá su propio ratón para saltar, perseguir y cazar… mientras tú haces tus cosas."
+    },
+    {
+      "type": "textarea",
+      "id": "bullets",
+      "label": "Ventajas (una por línea)",
+      "default": "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en 1 minuto, sin herramientas"
+    },
+    {
+      "type": "header",
+      "content": "Compra"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_stock",
+      "label": "Mostrar aviso de disponibilidad",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stock_texto",
+      "label": "Texto de disponibilidad",
+      "default": "En stock · Envío gratis con seguimiento"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_cantidad",
+      "label": "Mostrar selector de cantidad",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "boton_texto",
+      "label": "Texto del botón",
+      "default": "Añadir al carrito"
+    },
+    {
+      "type": "text",
+      "id": "agotado_texto",
+      "label": "Texto si está agotado",
+      "default": "Agotado"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_pago_rapido",
+      "label": "Mostrar botones de pago rápido (Shop Pay, PayPal…)",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "barra_movil",
+      "label": "Barra de compra fija en móvil",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "confianza",
+      "label": "Garantías (una por línea, máx. 3 recomendado)",
+      "default": "Envío gratis\nPago seguro\nInstala en 1 min"
+    },
+    {
+      "type": "header",
+      "content": "Información desplegable"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_descripcion",
+      "label": "Mostrar la descripción del catálogo",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "titulo_descripcion",
+      "label": "Título de la descripción",
+      "default": "Descripción"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 72
+    }
+  ],
+  "blocks": [
+    {
+      "type": "desplegable",
+      "name": "Desplegable",
+      "settings": [
+        {
+          "type": "text",
+          "id": "titulo",
+          "label": "Título",
+          "default": "Título"
+        },
+        {
+          "type": "richtext",
+          "id": "texto",
+          "label": "Contenido",
+          "default": "<p>Contenido</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Producto"
+    }
+  ],
+  "enabled_on": {
+    "templates": [
+      "product"
+    ]
+  }
+}
+{% endschema %}

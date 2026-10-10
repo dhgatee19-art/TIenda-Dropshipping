@@ -7,17 +7,28 @@
 - Tema base: Dawn (Shopify/dawn @ 258f00f, descargado 2026-10-10)
 
 ## Fases
-- [x] Fase 0 — Entorno: Node 22 + Shopify CLI 4.9.3 instalados (entorno en la nube)
-- [x] Fase 1 — Conexión + sondeo: sesión del tema + sesión de datos (store auth) OK.
-      Notas del entorno en la nube: usar NODE_USE_ENV_PROXY=1 con el CLI; falta xdg-open
-      (stub en scratchpad/bin); la vuelta de store auth (127.0.0.1:13387) la pega el usuario
-      y la reenvío con curl. Usar SIEMPRE --store kvqu7z-ms.myshopify.com.
-      Temas actuales en la tienda: Horizon (live, 195273720185), Horizon (unpublished, 195090219385).
-- [x] Fase 2 — Proyecto: tema base Dawn copiado
-- [ ] Fase 3 — Brief
-- [ ] Fase 4 — Secciones
-- [ ] Fase 5 — Producto y páginas
-- [ ] Fase 6 — Publicación
+- [x] Fase 0 — Entorno: Node 22 + Shopify CLI 4.9.3 (entorno en la nube)
+- [x] Fase 1 — Conexión + sondeo (sesión de tema + store auth). Ver notas técnicas abajo.
+- [x] Fase 2 — Proyecto: tema base Dawn
+- [x] Fase 3 — Brief: el usuario delegó el estilo ("el que más convierta"), tienda en español
+- [x] Fase 3b — Fotos IA (gpt-image-2): 12 imágenes generadas, gasto aprox. 1,3 $ de 5 $
+- [x] Fase 4 — Secciones propias (prefijo cb-)
+- [~] Fase 5 — Producto asignado (templateSuffix "cb"), galería y descripción OK. Pendiente: políticas legales (panel), página de contacto
+- [~] Fase 6 — Tema subido SIN publicar. Pendiente: auto-revisión visual (necesita contraseña de la tienda) y OK del usuario para publicar
+
+## Tema de trabajo
+- ID: 200400142713 ("Catboing v1", sin publicar)
+- Previsualización: https://kvqu7z-ms.myshopify.com/?preview_theme_id=200400142713
+- Editor: https://kvqu7z-ms.myshopify.com/admin/themes/200400142713/editor
+- Subir: `NODE_USE_ENV_PROXY=1 shopify theme push --store kvqu7z-ms.myshopify.com --path . --theme 200400142713 --json`
+- Tema publicado actual: Horizon (195273720185) — se mantiene como copia de seguridad
+
+## Notas técnicas del entorno en la nube
+- El CLI necesita NODE_USE_ENV_PROXY=1 (proxy de red) y un `xdg-open` falso en el PATH.
+- store auth redirige a 127.0.0.1:13387: el usuario pega la URL de vuelta y se reenvía con curl.
+- La clave de OpenAI NO está en el repositorio (vive en el scratchpad de la sesión; pedirla de nuevo si hace falta).
+- `herramientas/generar-secciones.py` regenera todas las secciones cb-* (markup + schema validado):
+  `python3 herramientas/generar-secciones.py .`
 
 ## Producto leído
 Producto principal ACTUAL (cambiado por el usuario el 2026-10-10):
@@ -38,8 +49,29 @@ Producto principal ACTUAL (cambiado por el usuario el 2026-10-10):
 Producto anterior (ahora DRAFT): CatGravity™ bebedero por gravedad
 (gid://shopify/Product/15804628599161), fotos en fotos-producto-catgravity/.
 
-## Secciones creadas
-(ninguna todavía)
+## Secciones creadas (sections/)
+- cb-hero — portada con foto, título, precio dinámico, botón, ventajas y etiqueta flotante
+- cb-marquesina — cinta animada de frases
+- cb-split — imagen + texto + lista (bloque "el problema")
+- cb-pasos — 3 pasos de instalación
+- cb-bandas — bandas alternas imagen/texto (por qué les encanta)
+- cb-galeria — galería en mosaico
+- cb-comparativa — tabla Catboing vs varita vs juguete suelto
+- cb-detalles — ficha técnica + aviso de medir la puerta
+- cb-faq — preguntas frecuentes (ancla /#faq)
+- cb-cta — llamada final con precio y añadir al carrito
+- cb-producto — página de producto (galería del catálogo, variantes, cantidad, barra fija móvil)
+- cb-footer — pie de página propio (en footer-group.json)
+- header.liquid (Dawn) — añadido logo por sección + logo de texto "Cat" + "boing"
+- Plantillas: templates/index.json, templates/product.cb.json (asignada al producto)
+- layout/theme.liquid: carga cb-styles.css / cb-scripts.js, favicon de respaldo, clase cb-js
 
 ## Decisiones de diseño
-(pendientes)
+- Tono: divertido y cercano ("gato feliz, dueño tranquilo"). Idioma: español.
+- Paleta: crema #FAF6F0, crema 2 #F3EADD, carbón #2B2A30, coral #FF5C7A (botones), amarillo #FFD36B.
+- Fuentes: las del tema (Nunito 800 títulos / Nunito 400 texto), editables en Ajustes del tema.
+- Esquinas redondeadas (24px), botones píldora, animaciones de entrada y rebote.
+- Sin reseñas inventadas: añadir una app de reseñas cuando haya opiniones reales.
+- Fotos IA en fotos-ia/ (copias en assets/cb-*.jpg). 6 subidas a la galería del producto (primeras).
+- Moneda de la tienda: USD (vende a MX/CL/CO/ES) — recomendado revisar Markets.
+

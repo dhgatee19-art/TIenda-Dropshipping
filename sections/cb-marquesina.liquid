@@ -1,0 +1,184 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+{% style %}
+  #shopify-section-{{ section.id }} .cb-marquee__item { font-size: {{ s.tamano }}px; padding: {{ s.alto }}px 22px; }
+  #shopify-section-{{ section.id }} .cb-marquee__track { --cb-vel: {{ s.velocidad }}s; }
+  #shopify-section-{{ section.id }} .cb-marquee__sep { color: {{ s.color_icono }}; }
+  {%- if s.inclinado %}
+  #shopify-section-{{ section.id }} .cb-marquee { transform: rotate(-1.5deg); margin: 18px -2%; }
+  {%- endif %}
+{% endstyle %}
+<div class="cb-section cb-marquee">
+  <div class="cb-marquee__track">
+    {%- for g in (1..2) -%}
+      <div class="cb-marquee__group"{% if g == 2 %} aria-hidden="true"{% endif %}>
+        {%- for r in (1..3) -%}
+          {%- for block in section.blocks -%}
+            <span class="cb-marquee__item" {% if g == 1 and r == 1 %}{{ block.shopify_attributes }}{% endif %}>
+              {%- if s.icono != 'ninguno' -%}<span class="cb-marquee__sep">{% render 'cb-icon', name: s.icono %}</span>{%- endif -%}
+              {{ block.settings.texto }}
+            </span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CB – Cinta animada",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "range",
+      "id": "velocidad",
+      "label": "Duración de una vuelta (segundos; más = más lento)",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "default": 34,
+      "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "tamano",
+      "label": "Tamaño del texto",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "default": 22,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "alto",
+      "label": "Altura de la cinta",
+      "min": 6,
+      "max": 40,
+      "step": 2,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "icono",
+      "label": "Icono separador",
+      "options": [
+        {
+          "value": "pata",
+          "label": "Huella"
+        },
+        {
+          "value": "estrella",
+          "label": "Estrella"
+        },
+        {
+          "value": "ninguno",
+          "label": "Ninguno"
+        }
+      ],
+      "default": "pata"
+    },
+    {
+      "type": "color",
+      "id": "color_icono",
+      "label": "Color del icono",
+      "default": "#FF5C7A"
+    },
+    {
+      "type": "checkbox",
+      "id": "inclinado",
+      "label": "Cinta ligeramente inclinada",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Texto",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "texto",
+      "name": "Frase",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texto",
+          "label": "Texto",
+          "default": "Envío gratis"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Cinta animada",
+      "blocks": [
+        {
+          "type": "texto",
+          "settings": {
+            "texto": "Envío gratis con seguimiento"
+          }
+        },
+        {
+          "type": "texto",
+          "settings": {
+            "texto": "Se instala en 1 minuto"
+          }
+        },
+        {
+          "type": "texto",
+          "settings": {
+            "texto": "Tu gato juega solo"
+          }
+        },
+        {
+          "type": "texto",
+          "settings": {
+            "texto": "Sin pilas ni enchufes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

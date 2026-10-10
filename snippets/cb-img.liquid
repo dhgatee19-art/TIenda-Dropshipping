@@ -14,5 +14,10 @@
   {%- assign alt_final = img.alt | default: alt -%}
   {{ img | image_url: width: w | image_tag: loading: load, alt: alt_final, sizes: '(max-width: 989px) 100vw, 50vw', widths: '400, 600, 800, 1000, 1200, 1600, 2000' }}
 {%- else -%}
-  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" loading="{{ load }}"{% if eager %} fetchpriority="high"{% endif %} {{ attrs }}>
+  {%- case fallback -%}
+    {%- when 'cb-hero.jpg', 'cb-tu-tranquilo.jpg' -%}{%- assign fw = 1536 -%}{%- assign fh = 1024 -%}
+    {%- when 'cb-cierre.jpg' -%}{%- assign fw = 1024 -%}{%- assign fh = 1536 -%}
+    {%- else -%}{%- assign fw = 1024 -%}{%- assign fh = 1024 -%}
+  {%- endcase -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" width="{{ fw }}" height="{{ fh }}" loading="{{ load }}"{% if eager %} fetchpriority="high"{% endif %} {{ attrs }}>
 {%- endif -%}

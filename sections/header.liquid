@@ -180,32 +180,40 @@
       endif
     -%}
 
+    {%- liquid
+      assign cb_logo = section.settings.cb_logo | default: settings.logo
+      if section.settings.cb_logo != blank
+        assign cb_logo_w = section.settings.cb_logo_width
+      else
+        assign cb_logo_w = settings.logo_width
+      endif
+    -%}
     {%- if section.settings.logo_position != 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if cb_logo != blank -%}
           <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+            {%- assign logo_alt = cb_logo.alt | default: shop.name | escape -%}
+            {%- assign logo_height = cb_logo_w | divided_by: cb_logo.aspect_ratio -%}
+            {% capture sizes %}(max-width: {{ cb_logo_w | times: 2 }}px) 50vw, {{ cb_logo_w }}px{% endcapture %}
+            {% capture widths %}{{ cb_logo_w }}, {{ cb_logo_w | times: 1.5 | round }}, {{ cb_logo_w | times: 2 }}{% endcapture %}
             {{
-              settings.logo
+              cb_logo
               | image_url: width: 600
               | image_tag:
                 class: 'header__heading-logo motion-reduce',
                 widths: widths,
                 height: logo_height,
-                width: settings.logo_width,
+                width: cb_logo_w,
                 alt: logo_alt,
                 sizes: sizes,
                 preload: true
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="cb-header-logo-text">{{ section.settings.cb_logo_text | default: shop.name }}<span>{{ section.settings.cb_logo_acento }}</span></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -228,27 +236,27 @@
         <h1 class="header__heading">
       {%- endif -%}
       <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
+        {%- if cb_logo != blank -%}
           <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+            {%- assign logo_alt = cb_logo.alt | default: shop.name | escape -%}
+            {%- assign logo_height = cb_logo_w | divided_by: cb_logo.aspect_ratio -%}
+            {% capture sizes %}(min-width: 750px) {{ cb_logo_w }}px, 50vw{% endcapture %}
+            {% capture widths %}{{ cb_logo_w }}, {{ cb_logo_w | times: 1.5 | round }}, {{ cb_logo_w | times: 2 }}{% endcapture %}
             {{
-              settings.logo
+              cb_logo
               | image_url: width: 600
               | image_tag:
                 class: 'header__heading-logo',
                 widths: widths,
                 height: logo_height,
-                width: settings.logo_width,
+                width: cb_logo_w,
                 alt: logo_alt,
                 sizes: sizes,
                 preload: true
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="cb-header-logo-text">{{ section.settings.cb_logo_text | default: shop.name }}<span>{{ section.settings.cb_logo_acento }}</span></span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -504,6 +512,11 @@
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
+    { "type": "header", "content": "Logo de la marca" },
+    { "type": "image_picker", "id": "cb_logo", "label": "Logo (imagen)", "info": "Si lo dejas vacío se muestra el logo de texto de abajo." },
+    { "type": "range", "id": "cb_logo_width", "label": "Ancho del logo (px)", "min": 50, "max": 300, "step": 5, "unit": "px", "default": 140 },
+    { "type": "text", "id": "cb_logo_text", "label": "Logo de texto: primera parte", "default": "Cat" },
+    { "type": "text", "id": "cb_logo_acento", "label": "Logo de texto: parte en color", "default": "boing" },
     {
       "type": "select",
       "id": "logo_position",

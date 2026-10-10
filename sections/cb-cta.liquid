@@ -1,0 +1,216 @@
+{%- render 'cb-section-style', section: section -%}
+{%- liquid
+  assign s = section.settings
+  assign p = s.producto
+  assign v = p.selected_or_first_available_variant
+-%}
+{% style %}
+  #shopify-section-{{ section.id }} .cb-cta__card { background: {{ s.color_tarjeta }}; color: {{ s.color_texto_tarjeta }}; }
+{% endstyle %}
+<section class="cb-section cb-cta">
+  <div class="cb-container">
+    <div class="cb-cta__card cb-reveal">
+      <div class="cb-cta__media">
+        {% render 'cb-img', img: s.imagen, fallback: 'cb-cierre.jpg', alt: 'Gatito sujetando el ratón Catboing', width: 1200 %}
+      </div>
+      <div class="cb-cta__body cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow" style="color: var(--cb-amarillo)">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+        {%- if p != blank -%}
+          <div class="cb-hero__price">
+            <span class="cb-hero__price-now">{{ v.price | money }}</span>
+            {%- if v.compare_at_price > v.price -%}
+              <span class="cb-hero__price-old">{{ v.compare_at_price | money }}</span>
+              {%- assign ahorro = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+              <span class="cb-hero__save">-{{ ahorro }}%</span>
+            {%- endif -%}
+          </div>
+          {%- if p.has_only_default_variant and s.anadir_directo -%}
+            {%- form 'product', p, class: 'cb-cta__form' -%}
+              <input type="hidden" name="id" value="{{ v.id }}">
+              <button type="submit" name="add" class="cb-btn"{% unless v.available %} disabled{% endunless %}>
+                {%- render 'cb-icon', name: 'carrito' -%}
+                {%- if v.available -%}{{ s.boton_texto }}{%- else -%}{{ s.agotado_texto }}{%- endif -%}
+              </button>
+            {%- endform -%}
+          {%- else -%}
+            <a href="{{ p.url }}" class="cb-btn">{{ s.boton_texto }}{% render 'cb-icon', name: 'flecha' %}</a>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if s.garantias != blank -%}
+          <div class="cb-garantias">
+            {%- assign iconos = 'camion,candado,reloj,escudo' | split: ',' -%}
+            {%- assign lineas = s.garantias | newline_to_br | split: '<br />' -%}
+            {%- assign n = 0 -%}
+            {%- for l in lineas -%}{%- assign t = l | strip -%}{%- if t != blank -%}{%- assign i = n | modulo: 4 -%}<span>{% render 'cb-icon', name: iconos[i] %}{{ t }}</span>{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Llamada a comprar",
+  "tag": "section",
+  "class": "cb-wrap",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "imagen",
+      "label": "Imagen"
+    },
+    {
+      "type": "product",
+      "id": "producto",
+      "label": "Producto"
+    },
+    {
+      "type": "checkbox",
+      "id": "anadir_directo",
+      "label": "El botón añade directamente al carrito",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Oferta de lanzamiento"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Dale a tu gato <em>su nuevo juguete favorito</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto",
+      "default": "Diversión para él, tranquilidad para ti. Pídelo hoy y recíbelo en casa con envío gratis."
+    },
+    {
+      "type": "text",
+      "id": "boton_texto",
+      "label": "Texto del botón",
+      "default": "Añadir al carrito"
+    },
+    {
+      "type": "text",
+      "id": "agotado_texto",
+      "label": "Texto si está agotado",
+      "default": "Agotado"
+    },
+    {
+      "type": "textarea",
+      "id": "garantias",
+      "label": "Garantías (una por línea)",
+      "default": "Envío gratis con seguimiento\nPago 100% seguro\nInstalación en 1 minuto"
+    },
+    {
+      "type": "color",
+      "id": "color_tarjeta",
+      "label": "Fondo de la tarjeta",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "color",
+      "id": "color_texto_tarjeta",
+      "label": "Texto de la tarjeta",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Llamada a comprar"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,239 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+<section class="cb-section cb-comp">
+  <div class="cb-container">
+    <div class="cb-comp__head cb-align">
+      {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+      <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+      {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+    </div>
+    <div class="cb-reveal" style="--cb-i:3">
+      <table class="cb-comp__table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden">Característica</span></th>
+            <th scope="col" class="cb-comp__nuestro">{{ s.col_1 }}</th>
+            <th scope="col">{{ s.col_2 }}</th>
+            {%- if s.col_3 != blank -%}<th scope="col">{{ s.col_3 }}</th>{%- endif -%}
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <td>{{ block.settings.texto }}</td>
+              <td class="cb-comp__nuestro">{% if block.settings.c1 %}<span class="cb-si" title="Sí">{% render 'cb-icon', name: 'check' %}</span>{% else %}<span class="cb-no" title="No">{% render 'cb-icon', name: 'x' %}</span>{% endif %}</td>
+              <td>{% if block.settings.c2 %}<span class="cb-si" title="Sí">{% render 'cb-icon', name: 'check' %}</span>{% else %}<span class="cb-no" title="No">{% render 'cb-icon', name: 'x' %}</span>{% endif %}</td>
+              {%- if s.col_3 != blank -%}<td>{% if block.settings.c3 %}<span class="cb-si" title="Sí">{% render 'cb-icon', name: 'check' %}</span>{% else %}<span class="cb-no" title="No">{% render 'cb-icon', name: 'x' %}</span>{% endif %}</td>{%- endif -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Comparativa",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Compáralo"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "¿Por qué <em>Catboing</em>?",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto"
+    },
+    {
+      "type": "text",
+      "id": "col_1",
+      "label": "Columna 1 (la vuestra)",
+      "default": "Catboing"
+    },
+    {
+      "type": "text",
+      "id": "col_2",
+      "label": "Columna 2",
+      "default": "Varita con pluma"
+    },
+    {
+      "type": "text",
+      "id": "col_3",
+      "label": "Columna 3 (vacío = sin columna)",
+      "default": "Juguete suelto"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#F3EADD"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fila",
+      "name": "Fila",
+      "settings": [
+        {
+          "type": "text",
+          "id": "texto",
+          "label": "Característica",
+          "default": "Característica"
+        },
+        {
+          "type": "checkbox",
+          "id": "c1",
+          "label": "Columna 1 la cumple",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "c2",
+          "label": "Columna 2 la cumple",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "c3",
+          "label": "Columna 3 la cumple",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Comparativa",
+      "blocks": [
+        {
+          "type": "fila",
+          "settings": {
+            "texto": "Tu gato juega aunque tú no estés",
+            "c1": true,
+            "c2": false,
+            "c3": true
+          }
+        },
+        {
+          "type": "fila",
+          "settings": {
+            "texto": "Se mueve y rebota con cada golpe",
+            "c1": true,
+            "c2": false,
+            "c3": false
+          }
+        },
+        {
+          "type": "fila",
+          "settings": {
+            "texto": "Movimiento que despierta su instinto",
+            "c1": true,
+            "c2": true,
+            "c3": false
+          }
+        },
+        {
+          "type": "fila",
+          "settings": {
+            "texto": "No acaba perdido debajo del sofá",
+            "c1": true,
+            "c2": true,
+            "c3": false
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

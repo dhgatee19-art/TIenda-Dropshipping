@@ -1,0 +1,202 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+{%- assign respaldos = 'cb-galeria-1.jpg,cb-galeria-2.jpg,cb-detalle.jpg,cb-producto-estudio.jpg,cb-banda-2.jpg' | split: ',' -%}
+{% style %}
+  #shopify-section-{{ section.id }} .cb-galeria__grid { gap: {{ s.separacion }}px; }
+{% endstyle %}
+<section class="cb-section cb-galeria">
+  <div class="cb-container">
+    <div class="cb-galeria__head cb-align">
+      {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+      <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+      {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+    </div>
+    <div class="cb-galeria__grid">
+      {%- for block in section.blocks -%}
+        {%- assign idx = forloop.index0 | modulo: 5 -%}
+        <figure class="cb-galeria__item cb-reveal" style="--cb-i:{{ forloop.index0 }};margin:0" {{ block.shopify_attributes }}>
+          {% render 'cb-img', img: block.settings.imagen, fallback: respaldos[idx], alt: block.settings.texto, width: 1000 %}
+          {%- if block.settings.texto != blank -%}<figcaption class="cb-galeria__cap">{{ block.settings.texto }}</figcaption>{%- endif -%}
+        </figure>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Galería",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "En acción"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Saltos, zarpazos y <em>mucha diversión</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto"
+    },
+    {
+      "type": "range",
+      "id": "separacion",
+      "label": "Separación entre fotos",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "foto",
+      "name": "Foto",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "imagen",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "texto",
+          "label": "Texto sobre la foto (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Galería",
+      "blocks": [
+        {
+          "type": "foto",
+          "settings": {
+            "texto": "¡Salto olímpico!"
+          }
+        },
+        {
+          "type": "foto",
+          "settings": {
+            "texto": "Se instala en 1 minuto"
+          }
+        },
+        {
+          "type": "foto",
+          "settings": {
+            "texto": "Peluche suave"
+          }
+        },
+        {
+          "type": "foto",
+          "settings": {
+            "texto": "Cuerda elástica"
+          }
+        },
+        {
+          "type": "foto",
+          "settings": {
+            "texto": ""
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

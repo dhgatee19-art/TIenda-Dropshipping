@@ -1,0 +1,252 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+<section class="cb-section cb-pasos">
+  <div class="cb-container">
+    <div class="cb-pasos__head cb-align">
+      {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+      <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+      {%- if s.texto != blank -%}<div class="cb-body cb-reveal" style="--cb-i:2">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+    </div>
+    <div class="cb-pasos__grid">
+      {%- for block in section.blocks -%}
+        <div class="cb-paso cb-reveal" style="--cb-i:{{ forloop.index }}" {{ block.shopify_attributes }}>
+          <span class="cb-paso__icon">{% render 'cb-icon', name: block.settings.icono %}</span>
+          <div class="cb-paso__num">{{ forloop.index }}</div>
+          <h3 class="cb-h3" style="font-size: {{ s.paso_titulo }}px">{{ block.settings.titulo }}</h3>
+          <div class="cb-texto" style="line-height:1.55;opacity:.8">{{ block.settings.texto | newline_to_br }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if s.nota != blank -%}
+      <div class="cb-align" style="margin-top:6px"><span class="cb-pasos__nota cb-reveal">{% render 'cb-icon', name: 'reloj' %}{{ s.nota }}</span></div>
+    {%- endif -%}
+  </div>
+</section>
+{% style %}
+  #shopify-section-{{ section.id }} .cb-pasos__nota svg { width: 20px; height: 20px; color: var(--cb-coral); }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "CB – Pasos",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Así de fácil"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Listo para jugar en <em>1 minuto</em>",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto",
+      "default": "Sin herramientas, sin tornillos y sin agujeros en la pared."
+    },
+    {
+      "type": "range",
+      "id": "paso_titulo",
+      "label": "Tamaño del título de cada paso",
+      "min": 16,
+      "max": 34,
+      "step": 1,
+      "default": 23,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "nota",
+      "label": "Nota final (vacío = sin nota)",
+      "default": "Funciona mejor en marcos de puerta delgados"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#F3EADD"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "paso",
+      "name": "Paso",
+      "settings": [
+        {
+          "type": "text",
+          "id": "titulo",
+          "label": "Título",
+          "default": "Paso"
+        },
+        {
+          "type": "textarea",
+          "id": "texto",
+          "label": "Texto",
+          "default": "Descripción del paso"
+        },
+        {
+          "type": "select",
+          "id": "icono",
+          "label": "Icono decorativo",
+          "options": [
+            {
+              "value": "gancho",
+              "label": "Gancho"
+            },
+            {
+              "value": "regla",
+              "label": "Regla"
+            },
+            {
+              "value": "raton",
+              "label": "Ratón"
+            },
+            {
+              "value": "pata",
+              "label": "Huella"
+            },
+            {
+              "value": "estrella",
+              "label": "Estrella"
+            },
+            {
+              "value": "reloj",
+              "label": "Reloj"
+            },
+            {
+              "value": "camion",
+              "label": "Camión"
+            },
+            {
+              "value": "escudo",
+              "label": "Escudo"
+            },
+            {
+              "value": "candado",
+              "label": "Candado"
+            }
+          ],
+          "default": "pata"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Pasos",
+      "blocks": [
+        {
+          "type": "paso",
+          "settings": {
+            "titulo": "Engancha",
+            "texto": "Pasa el soporte por encima del marco de la puerta, en la parte de arriba.",
+            "icono": "gancho"
+          }
+        },
+        {
+          "type": "paso",
+          "settings": {
+            "titulo": "Comprueba",
+            "texto": "Asegúrate de que queda firme antes de soltarlo.",
+            "icono": "regla"
+          }
+        },
+        {
+          "type": "paso",
+          "settings": {
+            "titulo": "Ajusta y ¡a jugar!",
+            "texto": "Regula la cuerda para que el ratón cuelgue a la altura de tu gato… y disfruta del espectáculo.",
+            "icono": "raton"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

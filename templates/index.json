@@ -1,75 +1,306 @@
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero": {
+      "type": "cb-hero",
+      "settings": {
+        "producto": "juguete-colgante-puerta-gatos"
+      }
+    },
+    "cinta": {
+      "type": "cb-marquesina",
+      "settings": {},
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "cb-marquesina-0": {
+          "type": "texto",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "texto": "Envío gratis con seguimiento"
           }
         },
-        "button": {
-          "type": "buttons",
+        "cb-marquesina-1": {
+          "type": "texto",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "texto": "Se instala en 1 minuto"
+          }
+        },
+        "cb-marquesina-2": {
+          "type": "texto",
+          "settings": {
+            "texto": "Tu gato juega solo"
+          }
+        },
+        "cb-marquesina-3": {
+          "type": "texto",
+          "settings": {
+            "texto": "Sin pilas ni enchufes"
+          }
+        },
+        "cb-marquesina-4": {
+          "type": "texto",
+          "settings": {
+            "texto": "Ratón de peluche suave"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
-      ],
+        "cb-marquesina-0",
+        "cb-marquesina-1",
+        "cb-marquesina-2",
+        "cb-marquesina-3",
+        "cb-marquesina-4"
+      ]
+    },
+    "problema": {
+      "type": "cb-split",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "boton_texto": "Quiero que juegue solo",
+        "boton_url": "/products/juguete-colgante-puerta-gatos"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "pasos": {
+      "type": "cb-pasos",
+      "settings": {},
+      "blocks": {
+        "cb-pasos-0": {
+          "type": "paso",
+          "settings": {
+            "titulo": "Engancha",
+            "texto": "Pasa el soporte por encima del marco de la puerta, en la parte de arriba.",
+            "icono": "gancho"
+          }
+        },
+        "cb-pasos-1": {
+          "type": "paso",
+          "settings": {
+            "titulo": "Comprueba",
+            "texto": "Asegúrate de que queda firme antes de soltarlo.",
+            "icono": "regla"
+          }
+        },
+        "cb-pasos-2": {
+          "type": "paso",
+          "settings": {
+            "titulo": "Ajusta y ¡a jugar!",
+            "texto": "Regula la cuerda para que el ratón cuelgue a la altura de tu gato… y disfruta del espectáculo.",
+            "icono": "raton"
+          }
+        }
+      },
+      "block_order": [
+        "cb-pasos-0",
+        "cb-pasos-1",
+        "cb-pasos-2"
+      ]
+    },
+    "bandas": {
+      "type": "cb-bandas",
+      "settings": {},
+      "blocks": {
+        "cb-bandas-0": {
+          "type": "banda",
+          "settings": {
+            "tag": "Instinto de caza",
+            "titulo": "Despierta al cazador que lleva dentro",
+            "texto": "Un ratón de peluche suave que se mueve con cada zarpazo. Tu gato acecha, se agazapa y salta, igual que haría si estuviera cazando de verdad."
+          }
+        },
+        "cb-bandas-1": {
+          "type": "banda",
+          "settings": {
+            "tag": "Rebote elástico",
+            "titulo": "Nunca se queda quieto",
+            "texto": "La cuerda elástica hace que el ratón rebote y cambie de dirección con cada golpe. Cada partida es distinta, así que el juego sigue siendo interesante."
+          }
+        },
+        "cb-bandas-2": {
+          "type": "banda",
+          "settings": {
+            "tag": "Gato cansado, gato feliz",
+            "titulo": "Gasta energía y se aburre menos",
+            "texto": "Unos minutos de juego intenso ayudan a liberar la energía acumulada de los gatos de casa. Menos aburrimiento, menos travesuras… y siestas más largas."
+          }
+        }
+      },
+      "block_order": [
+        "cb-bandas-0",
+        "cb-bandas-1",
+        "cb-bandas-2"
+      ]
+    },
+    "galeria": {
+      "type": "cb-galeria",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "color_fondo": "#F3EADD"
+      },
+      "blocks": {
+        "cb-galeria-0": {
+          "type": "foto",
+          "settings": {
+            "texto": "¡Salto olímpico!"
+          }
+        },
+        "cb-galeria-1": {
+          "type": "foto",
+          "settings": {
+            "texto": "Se instala en 1 minuto"
+          }
+        },
+        "cb-galeria-2": {
+          "type": "foto",
+          "settings": {
+            "texto": "Peluche suave"
+          }
+        },
+        "cb-galeria-3": {
+          "type": "foto",
+          "settings": {
+            "texto": "Cuerda elástica"
+          }
+        },
+        "cb-galeria-4": {
+          "type": "foto",
+          "settings": {
+            "texto": ""
+          }
+        }
+      },
+      "block_order": [
+        "cb-galeria-0",
+        "cb-galeria-1",
+        "cb-galeria-2",
+        "cb-galeria-3",
+        "cb-galeria-4"
+      ]
+    },
+    "comparativa": {
+      "type": "cb-comparativa",
+      "settings": {
+        "color_fondo": "#FAF6F0"
+      },
+      "blocks": {
+        "cb-comparativa-0": {
+          "type": "fila",
+          "settings": {
+            "texto": "Tu gato juega aunque tú no estés",
+            "c1": true,
+            "c2": false,
+            "c3": true
+          }
+        },
+        "cb-comparativa-1": {
+          "type": "fila",
+          "settings": {
+            "texto": "Se mueve y rebota con cada golpe",
+            "c1": true,
+            "c2": false,
+            "c3": false
+          }
+        },
+        "cb-comparativa-2": {
+          "type": "fila",
+          "settings": {
+            "texto": "Movimiento que despierta su instinto",
+            "c1": true,
+            "c2": true,
+            "c3": false
+          }
+        },
+        "cb-comparativa-3": {
+          "type": "fila",
+          "settings": {
+            "texto": "No acaba perdido debajo del sofá",
+            "c1": true,
+            "c2": true,
+            "c3": false
+          }
+        }
+      },
+      "block_order": [
+        "cb-comparativa-0",
+        "cb-comparativa-1",
+        "cb-comparativa-2",
+        "cb-comparativa-3"
+      ]
+    },
+    "detalles": {
+      "type": "cb-detalles",
+      "settings": {}
+    },
+    "faq": {
+      "type": "cb-faq",
+      "settings": {
+        "color_fondo": "#F3EADD"
+      },
+      "blocks": {
+        "cb-faq-0": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Sirve para cualquier puerta?",
+            "respuesta": "<p>El gancho está pensado para marcos de puerta delgados. En marcos gruesos puede quedar justo, así que te recomendamos medir el grosor del marco antes de comprar.</p>"
+          }
+        },
+        "cb-faq-1": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Necesito herramientas para instalarlo?",
+            "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en un minuto.</p>"
+          }
+        },
+        "cb-faq-2": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Es seguro para mi gato?",
+            "respuesta": "<p>Úsalo siempre con tu gato supervisado y guárdalo cuando termine de jugar. Con el uso intenso la cuerda puede desgastarse, así que revísala de vez en cuando.</p>"
+          }
+        },
+        "cb-faq-3": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Puedo colgar otros juguetes?",
+            "respuesta": "<p>Sí. En el otro extremo de la cuerda puedes colgar otros juguetes favoritos de tu gato.</p>"
+          }
+        },
+        "cb-faq-4": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Cuánto tarda el envío?",
+            "respuesta": "<p>El envío es gratis y con número de seguimiento: México 6-11 días hábiles, Chile 7-10, Colombia 8-16 y España 7-14.</p>"
+          }
+        },
+        "cb-faq-5": {
+          "type": "pregunta",
+          "settings": {
+            "pregunta": "¿Y si tengo algún problema con mi pedido?",
+            "respuesta": "<p>Escríbenos y lo resolvemos. Puedes consultar todas las condiciones en nuestra <a href=\"/policies/refund-policy\">política de devoluciones</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "cb-faq-0",
+        "cb-faq-1",
+        "cb-faq-2",
+        "cb-faq-3",
+        "cb-faq-4",
+        "cb-faq-5"
+      ]
+    },
+    "cta": {
+      "type": "cb-cta",
+      "settings": {
+        "producto": "juguete-colgante-puerta-gatos",
+        "padding_top": 96
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero",
+    "cinta",
+    "problema",
+    "pasos",
+    "bandas",
+    "galeria",
+    "comparativa",
+    "detalles",
+    "faq",
+    "cta"
   ]
 }

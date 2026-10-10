@@ -1,0 +1,210 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+{%- assign respaldos = 'cb-banda-1.jpg,cb-banda-2.jpg,cb-banda-3.jpg' | split: ',' -%}
+<section class="cb-section cb-bandas">
+  <div class="cb-container">
+    {%- if s.titulo != blank -%}
+      <div class="cb-bandas__head cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow cb-reveal">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2 cb-reveal" style="--cb-i:1">{{ s.titulo }}</h2>
+      </div>
+    {%- endif -%}
+    <div class="cb-bandas__list">
+      {%- for block in section.blocks -%}
+        {%- assign idx = forloop.index0 | modulo: 3 -%}
+        <div class="cb-banda" {{ block.shopify_attributes }}>
+          <div class="cb-banda__media cb-reveal">
+            <span class="cb-banda__blob" aria-hidden="true"></span>
+            {% render 'cb-img', img: block.settings.imagen, fallback: respaldos[idx], alt: block.settings.titulo, width: 1200 %}
+          </div>
+          <div class="cb-banda__text">
+            {%- if block.settings.tag != blank -%}<span class="cb-banda__tag cb-reveal">{{ block.settings.tag }}</span>{%- endif -%}
+            <h3 class="cb-h2 cb-reveal" style="--cb-i:1; font-size: clamp(26px, 4vw, {{ s.banda_titulo }}px)">{{ block.settings.titulo }}</h3>
+            <div class="cb-body cb-reveal" style="--cb-i:2">{{ block.settings.texto | newline_to_br }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Bandas",
+  "tag": "section",
+  "class": "cb-wrap",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Por qué les encanta"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título general (vacío = sin título)",
+      "default": "Diseñado para el <em>cazador</em> que lleva dentro",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "range",
+      "id": "banda_titulo",
+      "label": "Tamaño del título de cada banda",
+      "min": 22,
+      "max": 60,
+      "step": 2,
+      "default": 38,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación del texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 46
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banda",
+      "name": "Banda",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "imagen",
+          "label": "Imagen",
+          "info": "Se recorta en forma redondeada."
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Etiqueta",
+          "default": "Ventaja"
+        },
+        {
+          "type": "text",
+          "id": "titulo",
+          "label": "Título",
+          "default": "Título de la banda"
+        },
+        {
+          "type": "textarea",
+          "id": "texto",
+          "label": "Texto",
+          "default": "Texto de la banda"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Bandas",
+      "blocks": [
+        {
+          "type": "banda",
+          "settings": {
+            "tag": "Instinto de caza",
+            "titulo": "Despierta al cazador que lleva dentro",
+            "texto": "Un ratón de peluche suave que se mueve con cada zarpazo. Tu gato acecha, se agazapa y salta, igual que haría si estuviera cazando de verdad."
+          }
+        },
+        {
+          "type": "banda",
+          "settings": {
+            "tag": "Rebote elástico",
+            "titulo": "Nunca se queda quieto",
+            "texto": "La cuerda elástica hace que el ratón rebote y cambie de dirección con cada golpe. Cada partida es distinta, así que el juego sigue siendo interesante."
+          }
+        },
+        {
+          "type": "banda",
+          "settings": {
+            "tag": "Gato cansado, gato feliz",
+            "titulo": "Gasta energía y se aburre menos",
+            "texto": "Unos minutos de juego intenso ayudan a liberar la energía acumulada de los gatos de casa. Menos aburrimiento, menos travesuras… y siestas más largas."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
