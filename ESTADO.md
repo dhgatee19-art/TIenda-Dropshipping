@@ -6,6 +6,13 @@
 - Carpeta del proyecto: raíz de este repositorio (tema completo)
 - Tema base: Dawn (Shopify/dawn @ 258f00f, descargado 2026-10-10)
 
+## Contexto del negocio (contado por el usuario)
+- Dropshipping desde julio 2026; 2 productos anteriores sin ventas (precio alto para LATAM, web mal configurada).
+- Tráfico orgánico con vídeos IA (Higgsfield): vídeos de 70-80k vistas con el primer producto; >60% del tráfico era de México.
+- Estrategia actual: Catboing para México, Chile, Colombia y España, sin restringir países; precio ~299 MXN (compra impulsiva).
+- Pagos: tarjetas + PayPal; sin OXXO (preocupación del usuario).
+- Siguiente paso del usuario: ideas de vídeos y prompts para anuncios.
+
 ## Fases
 - [x] Fase 0 — Entorno: Node 22 + Shopify CLI 4.9.3 (entorno en la nube)
 - [x] Fase 1 — Conexión + sondeo (sesión de tema + store auth). Ver notas técnicas abajo.
