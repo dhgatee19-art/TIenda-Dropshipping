@@ -97,6 +97,7 @@
             </button>
           </div>
           {%- if s.mostrar_pago_rapido -%}{{ form | payment_button }}{%- endif -%}
+          {%- if s.pago_texto != blank -%}<p class="cb-compra__pagos cb-texto">{{ s.pago_texto }}</p>{%- endif -%}
         {%- endform -%}
 
         {%- if s.confianza != blank -%}
@@ -218,6 +219,12 @@
       "id": "mostrar_pago_rapido",
       "label": "Mostrar botones de pago rápido (Shop Pay, PayPal…)",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "pago_texto",
+      "label": "Texto de métodos de pago bajo el botón (vacío = oculto)",
+      "default": "💳 Paga con tarjeta de débito, crédito o PayPal"
     },
     {
       "type": "checkbox",

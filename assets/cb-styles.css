@@ -293,3 +293,4 @@
 .cb-producto__grid > *, .cb-split > *, .cb-banda > *, .cb-faq__wrap > *, .cb-cta__card > * { min-width: 0; }
 .cb-compra .cb-h1 { overflow-wrap: anywhere; }
 .cb-compra .cb-eyebrow { margin-bottom: 8px; }
+.cb-compra__pagos { text-align: center; font-weight: 700; font-size: 14px !important; color: var(--cb-suave); margin: 2px 0 6px; }

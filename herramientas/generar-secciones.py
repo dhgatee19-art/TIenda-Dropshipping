@@ -764,6 +764,7 @@ write("cb-producto", r"""
             </button>
           </div>
           {%- if s.mostrar_pago_rapido -%}{{ form | payment_button }}{%- endif -%}
+          {%- if s.pago_texto != blank -%}<p class="cb-compra__pagos cb-texto">{{ s.pago_texto }}</p>{%- endif -%}
         {%- endform -%}
 
         {%- if s.confianza != blank -%}
@@ -812,6 +813,7 @@ write("cb-producto", r"""
         T("boton_texto", "Texto del botón", "Añadir al carrito"),
         T("agotado_texto", "Texto si está agotado", "Agotado"),
         CHK("mostrar_pago_rapido", "Mostrar botones de pago rápido (Shop Pay, PayPal…)", False),
+        T("pago_texto", "Texto de métodos de pago bajo el botón (vacío = oculto)", "💳 Paga con tarjeta de débito, crédito o PayPal"),
         CHK("barra_movil", "Barra de compra fija en móvil", True),
         TA("confianza", "Garantías (una por línea, máx. 3 recomendado)", "Envío gratis\nPago seguro\nInstala en 1 min"),
         H("Información desplegable"),
