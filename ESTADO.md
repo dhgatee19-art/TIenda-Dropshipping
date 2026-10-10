@@ -1,7 +1,7 @@
 # ESTADO del proyecto
 
 - Tienda: kvqu7z-ms.myshopify.com (nombre interno; el panel es admin.shopify.com/store/curioshop-2843)
-- Nombre de la tienda: CatGravity
+- Nombre de la tienda: CatGravity (dominio catboing.com)
 - Panel: https://admin.shopify.com/store/curioshop-2843
 - Carpeta del proyecto: raíz de este repositorio (tema completo)
 - Tema base: Dawn (Shopify/dawn @ 258f00f, descargado 2026-10-10)
@@ -20,19 +20,23 @@
 - [ ] Fase 6 — Publicación
 
 ## Producto leído
-Producto principal (ACTIVE):
-- id: gid://shopify/Product/15804628599161
-- handle: catgravity-automatic-silent-water-fountain
-- título: CatGravity™ - Automatic Silent Water Fountain
-- tipo: Pet Supplies · vendor: Catgravity · templateSuffix: (ninguna)
-- variantes (Color): Blue, Yellow, Pink, Purple — 34.99 (antes 59.99)
-- descripción original: bebedero por gravedad para gatos, sin electricidad, 100% silencioso,
-  cuenco ancho y poco profundo (anti fatiga de bigotes), BPA-free, se limpia en <2 min.
-  Incluye depósito + base antideslizante con cuenco. Envío gratis US/UK/CA/AU, garantía 30 días.
-- medidas: depósito 9 cm × 15,5 cm; altura base 14,5 cm; base 19,5 × 18 cm; cuenco 8 cm.
-- fotos: 8 en fotos-producto/ (de proveedor: medidas/textos encima, fondos blancos, 1-2 de ambiente)
-- otros productos (no principales): Catboing™ juguete colgante (DRAFT), 2 dispensadores
-  de agua ajustables (DRAFT / UNLISTED).
+Producto principal ACTUAL (cambiado por el usuario el 2026-10-10):
+- id: gid://shopify/Product/15856931602809
+- handle: juguete-colgante-puerta-gatos
+- título: Catboing™ | Juguete colgante para puerta para gatos con cuerda elástica
+- estado: ACTIVE pero SIN publicar en el canal Tienda online (publishedAt null) → la
+  vista previa da error. Hay que marcar el canal "Tienda online" en el producto.
+- precio: 16.99 (antes 29.99), 1 variante "Gris oscuro", stock 61, vende sin stock (CONTINUE)
+- descripción (ES): ratón de peluche con cuerda elástica que se cuelga del marco de la
+  puerta; el gato juega solo; instalación en 1 min (3 pasos); cuerda ~180 cm hasta ~380 cm
+  estirada; en el otro extremo se pueden colgar otros juguetes; gancho para marcos delgados
+  (en gruesos puede quedar justo); usar con supervisión. Envío gratis con seguimiento:
+  México 6-11, Chile 7-10, Colombia 8-16, España 7-14 días hábiles.
+- SEO ya escrito por el usuario (título/descr.). Dominio: catboing.com (tienda con contraseña).
+- fotos: 6 en fotos-producto/ (de proveedor, con textos en inglés encima; 2-3 de ambiente)
+
+Producto anterior (ahora DRAFT): CatGravity™ bebedero por gravedad
+(gid://shopify/Product/15804628599161), fotos en fotos-producto-catgravity/.
 
 ## Secciones creadas
 (ninguna todavía)
