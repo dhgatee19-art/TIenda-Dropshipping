@@ -1,0 +1,22 @@
+{%- comment -%}
+  Estilos comunes por sección (espaciado, fondo, color, tipografía).
+  Uso: {% render 'cb-section-style', section: section %}
+{%- endcomment -%}
+{%- assign s = section.settings -%}
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ s.padding_top | default: 0 }}px;
+    padding-bottom: {{ s.padding_bottom | default: 0 }}px;
+    {%- if s.color_fondo != blank %} background: {{ s.color_fondo }};{% endif %}
+    {%- if s.color_texto != blank %} color: {{ s.color_texto }};{% endif %}
+  }
+  #shopify-section-{{ section.id }} .cb-section { {%- if s.color_texto != blank %} color: {{ s.color_texto }};{% endif %} }
+  #shopify-section-{{ section.id }} .cb-h1,
+  #shopify-section-{{ section.id }} .cb-h2 { font-size: clamp({{ s.heading_size | default: 44 | times: 0.62 | round }}px, 5vw, {{ s.heading_size | default: 44 }}px); }
+  #shopify-section-{{ section.id }} .cb-body,
+  #shopify-section-{{ section.id }} .cb-texto { font-size: {{ s.body_size | default: 17 }}px; }
+  #shopify-section-{{ section.id }} .cb-align { text-align: {{ s.text_align | default: 'left' }}; }
+  {%- if s.text_align == 'center' %}
+  #shopify-section-{{ section.id }} .cb-align { margin-left: auto; margin-right: auto; }
+  {%- endif %}
+{% endstyle %}

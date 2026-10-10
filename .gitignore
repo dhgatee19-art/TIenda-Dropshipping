@@ -1,0 +1,3 @@
+clave-openai.txt
+*.tmp.json
+.tmp-*

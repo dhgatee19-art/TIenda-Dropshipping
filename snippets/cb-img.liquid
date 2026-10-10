@@ -1,0 +1,18 @@
+{%- comment -%}
+  Imagen editable con respaldo en assets.
+  Uso: {% render 'cb-img', img: section.settings.imagen, fallback: 'cb-hero.jpg', alt: 'Texto', width: 1600, eager: false, attrs: '' %}
+{%- endcomment -%}
+{%- liquid
+  assign w = width | default: 1200
+  if eager
+    assign load = 'eager'
+  else
+    assign load = 'lazy'
+  endif
+-%}
+{%- if img != blank -%}
+  {%- assign alt_final = img.alt | default: alt -%}
+  {{ img | image_url: width: w | image_tag: loading: load, alt: alt_final, sizes: '(max-width: 989px) 100vw, 50vw', widths: '400, 600, 800, 1000, 1200, 1600, 2000' }}
+{%- else -%}
+  <img src="{{ fallback | asset_url }}" alt="{{ alt | escape }}" loading="{{ load }}"{% if eager %} fetchpriority="high"{% endif %} {{ attrs }}>
+{%- endif -%}
