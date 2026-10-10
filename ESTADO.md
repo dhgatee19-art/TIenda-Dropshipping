@@ -14,7 +14,7 @@
 - [x] Fase 3b — Fotos IA (gpt-image-2): 12 imágenes generadas, gasto aprox. 1,3 $ de 5 $
 - [x] Fase 4 — Secciones propias (prefijo cb-)
 - [~] Fase 5 — Producto asignado (templateSuffix "cb"), galería y descripción OK. Pendiente: políticas legales (panel), página de contacto
-- [~] Fase 6 — Tema subido SIN publicar. Pendiente: auto-revisión visual (necesita contraseña de la tienda) y OK del usuario para publicar
+- [~] Fase 6 — Tema subido SIN publicar y auto-revisado (ordenador + móvil, carrito probado). Pendiente: OK del usuario para publicar
 
 ## Tema de trabajo
 - ID: 200400142713 ("Catboing v1", sin publicar)
@@ -23,7 +23,17 @@
 - Subir: `NODE_USE_ENV_PROXY=1 shopify theme push --store kvqu7z-ms.myshopify.com --path . --theme 200400142713 --json`
 - Tema publicado actual: Horizon (195273720185) — se mantiene como copia de seguridad
 
+## Pendiente del lado del usuario (panel de Shopify)
+- Idioma principal de la tienda = inglés → pago, emails y aviso de cookies salen en inglés. Cambiar a español.
+  (El tema ya muestra sus textos en español: locales/en.default.json lleva las traducciones de es.json.)
+- Título/descripción de la portada en Google = "AuriClean…" (antiguo) → Tienda online → Preferencias.
+- Nombre de la tienda = "CatGravity" (sale en la pestaña) → Configuración → Detalles de la tienda.
+- Menú principal en inglés (Home / Catalog) → Contenido → Menús (o darme permiso de menús).
+- Políticas legales (privacidad, términos, devoluciones, envíos) → Configuración → Políticas.
+- Moneda base USD; en la vista previa se ve en MXN (Markets convierte por país).
+
 ## Notas técnicas del entorno en la nube
+- Revisión visual: herramientas/pruebas/shots.mjs y test-compra.mjs (Playwright, contraseña en TIENDA_PASS).
 - El CLI necesita NODE_USE_ENV_PROXY=1 (proxy de red) y un `xdg-open` falso en el PATH.
 - store auth redirige a 127.0.0.1:13387: el usuario pega la URL de vuelta y se reenvía con curl.
 - La clave de OpenAI NO está en el repositorio (vive en el scratchpad de la sesión; pedirla de nuevo si hace falta).

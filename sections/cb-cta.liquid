@@ -26,7 +26,7 @@
               <span class="cb-hero__save">-{{ ahorro }}%</span>
             {%- endif -%}
           </div>
-          {%- if p.has_only_default_variant and s.anadir_directo -%}
+          {%- if p.variants.size == 1 and s.anadir_directo -%}
             {%- form 'product', p, class: 'cb-cta__form' -%}
               <input type="hidden" name="id" value="{{ v.id }}">
               <button type="submit" name="add" class="cb-btn"{% unless v.available %} disabled{% endunless %}>

@@ -4,13 +4,6 @@
       "type": "cb-producto",
       "settings": {},
       "blocks": {
-        "cb-producto-0": {
-          "type": "desplegable",
-          "settings": {
-            "titulo": "Instalación en 1 minuto",
-            "texto": "<ol><li>Engancha el soporte en la parte superior del marco de la puerta.</li><li>Comprueba que queda firme.</li><li>Ajusta la cuerda para que el ratón cuelgue a la altura de tu gato.</li></ol>"
-          }
-        },
         "cb-producto-1": {
           "type": "desplegable",
           "settings": {
@@ -27,7 +20,6 @@
         }
       },
       "block_order": [
-        "cb-producto-0",
         "cb-producto-1",
         "cb-producto-2"
       ]

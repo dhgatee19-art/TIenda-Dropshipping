@@ -2,7 +2,7 @@
 {%- liquid
   assign s = section.settings
   assign v = product.selected_or_first_available_variant
-  assign media_sel = v.featured_media | default: product.featured_media
+  assign media_sel = product.selected_variant.featured_media | default: product.featured_media
 -%}
 <section class="cb-section cb-producto" data-cb-producto data-money-format="{{ shop.money_format | escape }}" data-add-label="{{ s.boton_texto | escape }}" data-sold-label="{{ s.agotado_texto | escape }}">
   <div class="cb-container">
@@ -110,7 +110,7 @@
 
         <div class="cb-acordeon">
           {%- if s.mostrar_descripcion and product.description != blank -%}
-            <details open><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
+            <details{% if s.abrir_descripcion %} open{% endif %}><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
           {%- endif -%}
           {%- for block in section.blocks -%}
             <details {{ block.shopify_attributes }}><summary>{{ block.settings.titulo }}</summary><div class="cb-acordeon__body cb-texto">{{ block.settings.texto }}</div></details>
@@ -245,7 +245,13 @@
       "type": "text",
       "id": "titulo_descripcion",
       "label": "Título de la descripción",
-      "default": "Descripción"
+      "default": "Descripción completa"
+    },
+    {
+      "type": "checkbox",
+      "id": "abrir_descripcion",
+      "label": "Descripción abierta al cargar",
+      "default": false
     },
     {
       "type": "header",

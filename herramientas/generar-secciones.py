@@ -533,7 +533,7 @@ write("cb-detalles", r"""
         IMG("imagen", "Imagen"),
         CHK("invertido", "Imagen a la derecha", True),
         T("eyebrow", "Etiqueta superior", "Detalles"),
-        IRT("titulo", "Título", "Pequeño, suave y <em>muy resistente al juego</em>"),
+        IRT("titulo", "Título", "Suave para él, <em>fácil para ti</em>"),
         TA("texto", "Texto", ""),
         TA("specs", "Ficha técnica (una por línea: Nombre | Valor)", "Juguete | Ratón de peluche con cuerda elástica\nCuerda | Unos 180 cm (hasta 380 cm estirada)\nColor | Gris oscuro\nInstalación | En el marco de la puerta\nExtra | Cuelga otros juguetes en el otro extremo"),
         TA("aviso", "Aviso destacado (vacío = sin aviso)", "Mide el grosor del marco de tu puerta antes de comprar: el gancho está pensado para marcos delgados y en marcos gruesos puede quedar justo.\nÚsalo siempre con tu gato supervisado y guárdalo al terminar de jugar."),
@@ -621,7 +621,7 @@ write("cb-cta", r"""
               <span class="cb-hero__save">-{{ ahorro }}%</span>
             {%- endif -%}
           </div>
-          {%- if p.has_only_default_variant and s.anadir_directo -%}
+          {%- if p.variants.size == 1 and s.anadir_directo -%}
             {%- form 'product', p, class: 'cb-cta__form' -%}
               <input type="hidden" name="id" value="{{ v.id }}">
               <button type="submit" name="add" class="cb-btn"{% unless v.available %} disabled{% endunless %}>
@@ -669,7 +669,7 @@ write("cb-producto", r"""
 {%- liquid
   assign s = section.settings
   assign v = product.selected_or_first_available_variant
-  assign media_sel = v.featured_media | default: product.featured_media
+  assign media_sel = product.selected_variant.featured_media | default: product.featured_media
 -%}
 <section class="cb-section cb-producto" data-cb-producto data-money-format="{{ shop.money_format | escape }}" data-add-label="{{ s.boton_texto | escape }}" data-sold-label="{{ s.agotado_texto | escape }}">
   <div class="cb-container">
@@ -777,7 +777,7 @@ write("cb-producto", r"""
 
         <div class="cb-acordeon">
           {%- if s.mostrar_descripcion and product.description != blank -%}
-            <details open><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
+            <details{% if s.abrir_descripcion %} open{% endif %}><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
           {%- endif -%}
           {%- for block in section.blocks -%}
             <details {{ block.shopify_attributes }}><summary>{{ block.settings.titulo }}</summary><div class="cb-acordeon__body cb-texto">{{ block.settings.texto }}</div></details>
@@ -816,7 +816,8 @@ write("cb-producto", r"""
         TA("confianza", "Garantías (una por línea, máx. 3 recomendado)", "Envío gratis\nPago seguro\nInstala en 1 min"),
         H("Información desplegable"),
         CHK("mostrar_descripcion", "Mostrar la descripción del catálogo", True),
-        T("titulo_descripcion", "Título de la descripción", "Descripción"),
+        T("titulo_descripcion", "Título de la descripción", "Descripción completa"),
+        CHK("abrir_descripcion", "Descripción abierta al cargar", False),
     ] + comunes(h=40, b=16, pt=40, pb=72, con_align=False),
     "blocks": [{"type": "desplegable", "name": "Desplegable", "settings": [
         T("titulo", "Título", "Título"),

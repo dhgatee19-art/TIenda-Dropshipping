@@ -1,0 +1,33 @@
+import { chromium } from '/usr/local/lib/node_modules_global/playwright/index.mjs';
+const SP = process.argv[2];
+const BASE = 'https://catboing.com', T = 'preview_theme_id=200400142713';
+const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium', proxy: { server: process.env.HTTPS_PROXY } });
+const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+const page = await ctx.newPage();
+const errs = []; page.on('pageerror', e => errs.push(e.message));
+await ctx.request.post(BASE + '/password', { form: { form_type: 'storefront_password', utf8: '✓', password: process.env.TIENDA_PASS } });
+await page.goto(`${BASE}/products/juguete-colgante-puerta-gatos?${T}`, { waitUntil: 'load' });
+await page.waitForTimeout(2500);
+const b = await page.$('button:has-text("Accept")'); if (b) await b.click();
+const st0 = await page.$eval('[data-cb-sticky]', e => e.classList.contains('cb-mostrar'));
+await page.mouse.wheel(0, 1800); await page.waitForTimeout(1200);
+const st1 = await page.$eval('[data-cb-sticky]', e => e.classList.contains('cb-mostrar'));
+await page.screenshot({ path: SP + '/shots/m_sticky.png' });
+await page.mouse.wheel(0, -5000); await page.waitForTimeout(1000);
+const st2 = await page.$eval('[data-cb-sticky]', e => e.classList.contains('cb-mostrar'));
+console.log('barra fija: arriba', st0, '| tras bajar', st1, '| al volver', st2);
+// miniaturas
+const thumbs = await page.$$('[data-cb-thumb]');
+await thumbs[1].click(); await page.waitForTimeout(600);
+console.log('miniatura 2 cambia la foto:', (await page.$eval('[data-cb-main-img]', e => e.src)).includes((await thumbs[1].getAttribute('data-src')).split('?')[0].split('/').pop()));
+// cantidad 2 y añadir
+await page.click('[data-cb-qty-btn="1"]');
+await Promise.all([page.waitForNavigation({ waitUntil: 'load' }).catch(() => {}), page.click('form#cb-form-producto [data-cb-add]')]);
+await page.waitForTimeout(2000);
+console.log('tras añadir ->', page.url().replace(BASE, ''));
+const cart = await page.evaluate(async () => (await fetch('/cart.js')).json());
+console.log('carrito:', cart.item_count, 'uds', cart.items.map(i => i.title + ' x' + i.quantity).join(', '), '| total', cart.total_price, cart.currency);
+await page.screenshot({ path: SP + '/shots/m_cart.png', fullPage: false });
+console.log('textos carrito:', (await page.evaluate(() => document.querySelector('main')?.innerText || '')).slice(0, 300).replace(/\n+/g, ' | '));
+console.log('errores JS:', errs);
+await browser.close();

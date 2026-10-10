@@ -132,19 +132,28 @@
 
   function initStickyAtc() {
     var bar = document.querySelector('[data-cb-sticky]');
-    var target = document.querySelector('[data-cb-buy-zone]');
-    if (!bar || !target || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var below = e.boundingClientRect.top < 0;
-        bar.classList.toggle('cb-mostrar', !e.isIntersecting && below);
-      });
-    }).observe(target);
-    var form = bar.querySelector('[data-cb-sticky-submit]');
-    if (form) form.addEventListener('click', function (ev) {
-      var realBtn = target.querySelector('[data-cb-add]');
-      if (realBtn) { ev.preventDefault(); realBtn.click(); }
-    });
+    var zone = document.querySelector('[data-cb-buy-zone]');
+    var mainBtn = zone && zone.querySelector('form [data-cb-add]');
+    if (!bar || !mainBtn) return;
+    // Se muestra solo cuando el botón principal ya ha quedado por encima de la pantalla.
+    // (Comprobación en cada scroll: un IntersectionObserver no avisa si se salta el botón de golpe)
+    var ticking = false;
+    function check() {
+      bar.classList.toggle('cb-mostrar', mainBtn.getBoundingClientRect().bottom < 0);
+      ticking = false;
+    }
+    if (!bar.dataset.cbScroll) {
+      bar.dataset.cbScroll = '1';
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(check); }
+      }, { passive: true });
+    }
+    check();
+    var stickyBtn = bar.querySelector('[data-cb-sticky-submit]');
+    if (stickyBtn && !stickyBtn.dataset.cbBound) {
+      stickyBtn.dataset.cbBound = '1';
+      stickyBtn.addEventListener('click', function (ev) { ev.preventDefault(); mainBtn.click(); });
+    }
   }
 
   function init() {
