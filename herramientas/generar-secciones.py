@@ -122,7 +122,7 @@ write("cb-hero", r"""
   #shopify-section-{{ section.id }} .cb-hero__inner { min-height: {{ s.altura }}vh; }
   #shopify-section-{{ section.id }} .cb-hero__veil { opacity: {{ s.velo | divided_by: 100.0 }}; }
   #shopify-section-{{ section.id }} .cb-hero__media img { object-position: {{ s.foco_movil }}% center; }
-  @media (min-width: 990px) { #shopify-section-{{ section.id }} .cb-hero__media img { object-position: center; } }
+  @media (min-width: 1200px) { #shopify-section-{{ section.id }} .cb-hero__media img { object-position: center; } }
 {% endstyle %}
 <section class="cb-section cb-hero">
   <div class="cb-hero__inner">
