@@ -237,13 +237,6 @@
             "pregunta": "¿Y si tengo algún problema con mi pedido?",
             "respuesta": "<p>Escríbenos y lo resolvemos. Puedes consultar todas las condiciones en nuestra <a href=\"/policies/refund-policy\">política de devoluciones</a>.</p>"
           }
-        },
-        "cb-faq-resenas": {
-          "type": "pregunta",
-          "settings": {
-            "pregunta": "¿De dónde vienen las reseñas?",
-            "respuesta": "<p>Catboing es una tienda nueva. Las reseñas que ves son de compradores reales de este mismo juguete en otra plataforma (AliExpress), importadas sin cambiar su contenido; algunas están traducidas al español. Las reseñas de clientes de Catboing se irán añadiendo a medida que lleguen.</p>"
-          }
         }
       },
       "block_order": [
@@ -252,8 +245,7 @@
         "cb-faq-2",
         "cb-faq-3",
         "cb-faq-4",
-        "cb-faq-5",
-        "cb-faq-resenas"
+        "cb-faq-5"
       ]
     },
     "resenas": {

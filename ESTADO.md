@@ -95,3 +95,7 @@ Producto anterior (ahora DRAFT): CatGravity™ bebedero por gravedad
 - Fotos IA en fotos-ia/ (copias en assets/cb-*.jpg). 6 subidas a la galería del producto (primeras).
 - Moneda de la tienda: USD (vende a MX/CL/CO/ES) — recomendado revisar Markets.
 
+
+## Reseñas (pendiente, decidido esperar)
+- La ficha ya admite bloques de apps bajo el título (estrellas) y hay una sección "Apps" (`resenas`) antes de las FAQ.
+- Se hará cuando haya muchos carritos sin compra: instalar Judge.me, importar 20-40 reseñas reales de AliExpress con foto (desde 3-4 estrellas, sin editar texto) y añadir la FAQ "¿De dónde vienen las reseñas?".
