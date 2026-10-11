@@ -92,7 +92,7 @@ def write(name, markup, schema):
     for pr in schema.get("presets", []):
         assert len(pr["name"]) <= 25, (name, "preset largo")
     for b in schema.get("blocks", []):
-        assert len(b["name"]) <= 25, (name, "bloque largo")
+        assert len(b.get("name", "")) <= 25, (name, "bloque largo")
     def chk(lst):
         for x in lst:
             assert x.get("default", "x") != "", (name, x.get("id"), "default vacío")
@@ -711,6 +711,9 @@ write("cb-producto", r"""
       <div class="cb-compra" data-cb-buy-zone>
         {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
         <h1 class="cb-h1" style="font-size: clamp(28px, 4vw, {{ s.heading_size }}px)">{{ s.titulo_corto | default: product.title }}</h1>
+        {%- for block in section.blocks -%}
+          {%- if block.type == '@app' -%}<div class="cb-compra__app">{% render block %}</div>{%- endif -%}
+        {%- endfor -%}
         <div class="cb-compra__price">
           <span class="cb-hero__price-now" data-cb-price>{{ v.price | money }}</span>
           <span class="cb-hero__price-old" data-cb-compare{% unless v.compare_at_price > v.price %} hidden{% endunless %}>{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money }}{% endif %}</span>
@@ -794,6 +797,7 @@ write("cb-producto", r"""
             <details{% if s.abrir_descripcion %} open{% endif %}><summary>{{ s.titulo_descripcion }}</summary><div class="cb-acordeon__body cb-texto">{{ product.description }}</div></details>
           {%- endif -%}
           {%- for block in section.blocks -%}
+            {%- if block.type != 'desplegable' -%}{%- continue -%}{%- endif -%}
             <details {{ block.shopify_attributes }}><summary>{{ block.settings.titulo }}</summary><div class="cb-acordeon__body cb-texto">{{ block.settings.texto }}</div></details>
           {%- endfor -%}
         </div>
@@ -839,7 +843,8 @@ write("cb-producto", r"""
     ] + comunes(h=40, b=16, pt=40, pb=72, con_align=False),
     "blocks": [{"type": "desplegable", "name": "Desplegable", "settings": [
         T("titulo", "Título", "Título"),
-        {"type": "richtext", "id": "texto", "label": "Contenido", "default": "<p>Contenido</p>"}]}],
+        {"type": "richtext", "id": "texto", "label": "Contenido", "default": "<p>Contenido</p>"}]},
+        {"type": "@app"}],
     "presets": [{"name": "CB – Producto"}],
     "enabled_on": {"templates": ["product"]}
 })

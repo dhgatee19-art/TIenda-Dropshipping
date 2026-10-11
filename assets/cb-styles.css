@@ -297,3 +297,7 @@
 
 .cb-compra__entrega { display: flex; align-items: flex-start; gap: 8px; font-weight: 700; font-size: 14px; margin: -8px 0 16px; color: var(--cb-carbon); }
 .cb-compra__entrega svg { flex: none; width: 20px; height: 20px; color: var(--cb-coral); margin-top: 1px; }
+
+/* Bloques de apps (p. ej. estrellas de reseñas) bajo el título del producto */
+.cb-compra__app { margin: -4px 0 10px; }
+.cb-compra__app:empty { display: none; }
