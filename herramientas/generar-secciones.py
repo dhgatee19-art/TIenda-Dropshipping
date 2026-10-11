@@ -715,7 +715,8 @@ write("cb-producto", r"""
           <span class="cb-hero__price-now" data-cb-price>{{ v.price | money }}</span>
           <span class="cb-hero__price-old" data-cb-compare{% unless v.compare_at_price > v.price %} hidden{% endunless %}>{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money }}{% endif %}</span>
           {%- if v.compare_at_price > v.price and s.mostrar_descuento -%}
-            <span class="cb-hero__save">{{ s.texto_descuento }}</span>
+            {%- assign ahorro_dinero = v.compare_at_price | minus: v.price | money -%}
+            <span class="cb-hero__save">{{ s.texto_descuento | replace: '[ahorro]', ahorro_dinero }}</span>
           {%- endif -%}
         </div>
         {%- if s.intro != blank -%}<p class="cb-compra__intro cb-texto">{{ s.intro | newline_to_br }}</p>{%- endif -%}
@@ -728,7 +729,7 @@ write("cb-producto", r"""
 
         {%- form 'product', product, id: 'cb-form-producto', novalidate: 'novalidate' -%}
           <input type="hidden" name="id" value="{{ v.id }}">
-          {%- unless product.has_only_default_variant -%}
+          {%- if product.variants.size > 1 -%}
             {%- for option in product.options_with_values -%}
               {%- assign oi = forloop.index0 -%}
               <fieldset class="cb-opcion" data-cb-option style="border:0;padding:0;margin:0 0 18px">
@@ -744,10 +745,22 @@ write("cb-producto", r"""
             <script type="application/json" data-cb-variants>
               [{%- for x in product.variants -%}{"id":{{ x.id }},"available":{{ x.available | json }},"price":{{ x.price }},"compare_at_price":{{ x.compare_at_price | default: 0 }},"options":{{ x.options | json }},"featured_media_id":{{ x.featured_media.id | default: 'null' }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
             </script>
-          {%- endunless -%}
+          {%- endif -%}
 
           {%- if s.mostrar_stock and v.available -%}
             <p class="cb-compra__stock"><span class="cb-compra__dot" aria-hidden="true"></span>{{ s.stock_texto }}</p>
+          {%- endif -%}
+          {%- if s.plazos != blank -%}
+            {%- assign pais = localization.country.iso_code -%}
+            {%- assign plazo_txt = '' -%}
+            {%- assign lineas_pl = s.plazos | newline_to_br | split: '<br />' -%}
+            {%- for l in lineas_pl -%}
+              {%- assign partes = l | strip | split: '|' -%}
+              {%- assign cod = partes[0] | strip -%}
+              {%- if cod == pais -%}{%- assign plazo_txt = s.plazo_formato | replace: '[pais]', partes[1] | replace: '[dias]', partes[2] | strip -%}{%- endif -%}
+            {%- endfor -%}
+            {%- if plazo_txt == blank -%}{%- assign plazo_txt = s.plazo_defecto -%}{%- endif -%}
+            <p class="cb-compra__entrega">{% render 'cb-icon', name: 'camion' %}<span>{{ plazo_txt }}</span></p>
           {%- endif -%}
 
           <div class="cb-compra__row">
@@ -769,7 +782,7 @@ write("cb-producto", r"""
 
         {%- if s.confianza != blank -%}
           <div class="cb-confianza">
-            {%- assign iconos = 'camion,candado,reloj,escudo' | split: ',' -%}
+            {%- assign iconos = 'camion,candado,escudo,reloj' | split: ',' -%}
             {%- assign lineas = s.confianza | newline_to_br | split: '<br />' -%}
             {%- assign n = 0 -%}
             {%- for l in lineas -%}{%- assign t = l | strip -%}{%- if t != blank -%}{%- assign i = n | modulo: 4 -%}<div class="cb-confianza__item">{% render 'cb-icon', name: iconos[i] %}{{ t }}</div>{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
@@ -802,20 +815,23 @@ write("cb-producto", r"""
         T("eyebrow", "Etiqueta superior", "🐾 Juguete interactivo para gatos"),
         T("titulo_corto", "Título visible (vacío = título del catálogo)", "Catboing™ – Juguete colgante de puerta"),
         CHK("mostrar_descuento", "Mostrar etiqueta de descuento", True),
-        T("texto_descuento", "Texto de la etiqueta de descuento", "Oferta de lanzamiento"),
+        T("texto_descuento", "Texto de la etiqueta de descuento ([ahorro] = cantidad ahorrada)", "Ahorras [ahorro]"),
         H("Texto de venta"),
         TA("intro", "Introducción", "Cuélgalo del marco de una puerta y tu gato tendrá su propio ratón para saltar, perseguir y cazar… mientras tú haces tus cosas."),
         TA("bullets", "Ventajas (una por línea)", "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en 1 minuto, sin herramientas"),
         H("Compra"),
         CHK("mostrar_stock", "Mostrar aviso de disponibilidad", True),
-        T("stock_texto", "Texto de disponibilidad", "En stock · Envío gratis con seguimiento"),
+        T("stock_texto", "Texto de disponibilidad", "En stock"),
+        TA("plazos", "Plazos de entrega por país (una línea: CÓDIGO | País | plazo)", "MX | México | 6-11 días hábiles\nCL | Chile | 7-10 días hábiles\nCO | Colombia | 8-16 días hábiles\nES | España | 7-14 días hábiles"),
+        T("plazo_formato", "Frase del plazo ([pais] y [dias] se rellenan solos)", "Llega a [pais] en [dias] · Envío GRATIS con seguimiento"),
+        T("plazo_defecto", "Frase si el país no está en la lista", "Envío GRATIS con seguimiento"),
         CHK("mostrar_cantidad", "Mostrar selector de cantidad", True),
         T("boton_texto", "Texto del botón", "Añadir al carrito"),
         T("agotado_texto", "Texto si está agotado", "Agotado"),
         CHK("mostrar_pago_rapido", "Mostrar botones de pago rápido (Shop Pay, PayPal…)", False),
         T("pago_texto", "Texto de métodos de pago bajo el botón (vacío = oculto)", "💳 Paga con tarjeta de débito, crédito o PayPal"),
         CHK("barra_movil", "Barra de compra fija en móvil", True),
-        TA("confianza", "Garantías (una por línea, máx. 3 recomendado)", "Envío gratis\nPago seguro\nInstala en 1 min"),
+        TA("confianza", "Garantías (una por línea, máx. 3 recomendado)", "Envío gratis\nPago seguro\nDevolución 14 días"),
         H("Información desplegable"),
         CHK("mostrar_descripcion", "Mostrar la descripción del catálogo", True),
         T("titulo_descripcion", "Título de la descripción", "Descripción completa"),

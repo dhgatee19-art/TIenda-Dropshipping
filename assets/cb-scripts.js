@@ -139,7 +139,9 @@
     // (Comprobación en cada scroll: un IntersectionObserver no avisa si se salta el botón de golpe)
     var ticking = false;
     function check() {
-      bar.classList.toggle('cb-mostrar', mainBtn.getBoundingClientRect().bottom < 0);
+      // Visible siempre que el botón principal no esté en pantalla (ni antes de llegar a él ni después)
+      var r = mainBtn.getBoundingClientRect();
+      bar.classList.toggle('cb-mostrar', r.bottom < 0 || r.top > window.innerHeight);
       ticking = false;
     }
     if (!bar.dataset.cbScroll) {
