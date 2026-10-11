@@ -11,6 +11,7 @@
 - Tráfico orgánico con vídeos IA (Higgsfield): vídeos de 70-80k vistas con el primer producto; >60% del tráfico era de México.
 - Estrategia actual: Catboing para México, Chile, Colombia y España, sin restringir países; precio ~299 MXN (compra impulsiva).
 - Pagos: tarjetas + PayPal; sin OXXO (preocupación del usuario).
+- Perú añadido (2026-10-11): S/ 59.90, envío gratis 8-16 días (AliExpress Selection Standard 1,99 $).
 - Stock del proveedor: 61 uds. Política de inventario cambiada a DENY (deja de vender en 0) el 2026-10-11.
   Reactivar CONTINUE solo con proveedor de reserva.
 - Siguiente paso del usuario: ideas de vídeos y prompts para anuncios.
