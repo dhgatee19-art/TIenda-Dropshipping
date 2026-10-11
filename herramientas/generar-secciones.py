@@ -587,7 +587,7 @@ write("cb-faq", r"""
         {"type": "pregunta", "settings": {"pregunta": "¿Necesito herramientas para instalarlo?", "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en un minuto.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Es seguro para mi gato?", "respuesta": "<p>Úsalo siempre con tu gato supervisado y guárdalo cuando termine de jugar. Con el uso intenso la cuerda puede desgastarse, así que revísala de vez en cuando.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Puedo colgar otros juguetes?", "respuesta": "<p>Sí. En el otro extremo de la cuerda puedes colgar otros juguetes favoritos de tu gato.</p>"}},
-        {"type": "pregunta", "settings": {"pregunta": "¿Cuánto tarda el envío?", "respuesta": "<p>El envío es gratis y con número de seguimiento: México 6-11 días hábiles, Chile 7-10, Colombia 8-16 y España 7-14.</p>"}},
+        {"type": "pregunta", "settings": {"pregunta": "¿Cuánto tarda el envío?", "respuesta": "<p>El envío es gratis y con número de seguimiento: México 6-11 días hábiles, Chile 7-10, Colombia 8-16, Perú 8-16 y España 7-14.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Y si tengo algún problema con mi pedido?", "respuesta": "<p>Escríbenos y lo resolvemos. Puedes consultar todas las condiciones en nuestra <a href=\"/policies/refund-policy\">política de devoluciones</a>.</p>"}}]}]
 })
 
@@ -822,7 +822,7 @@ write("cb-producto", r"""
         H("Compra"),
         CHK("mostrar_stock", "Mostrar aviso de disponibilidad", True),
         T("stock_texto", "Texto de disponibilidad", "En stock"),
-        TA("plazos", "Plazos de entrega por país (una línea: CÓDIGO | País | plazo)", "MX | México | 6-11 días hábiles\nCL | Chile | 7-10 días hábiles\nCO | Colombia | 8-16 días hábiles\nES | España | 7-14 días hábiles"),
+        TA("plazos", "Plazos de entrega por país (una línea: CÓDIGO | País | plazo)", "MX | México | 6-11 días hábiles\nCL | Chile | 7-10 días hábiles\nCO | Colombia | 8-16 días hábiles\nPE | Perú | 8-16 días hábiles\nES | España | 7-14 días hábiles"),
         T("plazo_formato", "Frase del plazo ([pais] y [dias] se rellenan solos)", "Llega a [pais] en [dias] · Envío GRATIS con seguimiento"),
         T("plazo_defecto", "Frase si el país no está en la lista", "Envío GRATIS con seguimiento"),
         CHK("mostrar_cantidad", "Mostrar selector de cantidad", True),

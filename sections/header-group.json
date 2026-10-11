@@ -17,7 +17,7 @@
         "anuncio-1": {
           "type": "announcement",
           "settings": {
-            "text": "🚚 Envío GRATIS con seguimiento a México, Chile, Colombia y España",
+            "text": "🚚 Envío GRATIS con seguimiento a México, Chile, Colombia, Perú y España",
             "text_alignment": "center",
             "color_scheme": "scheme-3",
             "link": ""
