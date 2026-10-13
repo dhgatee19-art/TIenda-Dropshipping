@@ -99,3 +99,10 @@ Producto anterior (ahora DRAFT): CatGravity™ bebedero por gravedad
 ## Reseñas (pendiente, decidido esperar)
 - La ficha ya admite bloques de apps bajo el título (estrellas) y hay una sección "Apps" (`resenas`) antes de las FAQ.
 - Se hará cuando haya muchos carritos sin compra: instalar Judge.me, importar 20-40 reseñas reales de AliExpress con foto (desde 3-4 estrellas, sin editar texto) y añadir la FAQ "¿De dónde vienen las reseñas?".
+
+## Estrategia de vídeos (13-oct)
+- Facebook → público de México/LatAm (43 % MX). Publicar 16:00 / 21:00 / 3:00 (hora España).
+- TikTok (cuenta antigua reutilizada, >1.000 seguidores, enlace en bio) + Instagram (cuenta nueva profesional) → público sobre todo de España. Publicar 13-15 h o 20-22 h (hora España).
+- Fórmula: gancho con luz + problema reconocible → "Así que le busqué/pedí esto" → gato jugando → "Comenta GATO" (FB) / "Link en mi perfil" (TikTok/IG).
+- Clips originales sin texto en `videos/clips/` (ver LEEME.md); ganchos retocados en HD en `videos/ganchos-listos/`.
+- Aprendido: primer fotograma oscuro frena las vistas; prompts de vídeo por turnos y una sola acción; evitar "slowly"; contacto pata-piel falla.
