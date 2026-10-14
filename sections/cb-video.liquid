@@ -1,0 +1,122 @@
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+<section class="cb-section cb-video">
+  <div class="cb-container">
+    <div class="cb-video__grid cb-reveal">
+      <div class="cb-video__media">
+        <video autoplay loop muted playsinline preload="metadata" poster="{{ 'cb-clip-poster.jpg' | asset_url }}" aria-label="{{ s.alt | escape }}">
+          <source src="{{ 'cb-clip.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="cb-video__body cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CB – Vídeo",
+  "tag": "section",
+  "class": "cb-wrap",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Míralo en acción"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "titulo",
+      "label": "Título",
+      "default": "Se cuelga en <em>10 segundos</em> y tu gato no para",
+      "info": "Pon palabras en cursiva para que salgan en color, o en negrita para subrayarlas."
+    },
+    {
+      "type": "textarea",
+      "id": "texto",
+      "label": "Texto",
+      "default": "Se engancha en el borde de la puerta, sin herramientas ni agujeros. Ajusta la altura del ratón y deja que juegue."
+    },
+    {
+      "type": "text",
+      "id": "alt",
+      "label": "Descripción del vídeo (accesibilidad)",
+      "default": "Gato saltando para atrapar el ratón colgado de una puerta"
+    },
+    {
+      "type": "header",
+      "content": "Tipografía"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Tamaño del título",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Tamaño del texto",
+      "min": 13,
+      "max": 26,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Colores"
+    },
+    {
+      "type": "color",
+      "id": "color_fondo",
+      "label": "Fondo de la sección",
+      "default": "#FAF6F0"
+    },
+    {
+      "type": "color",
+      "id": "color_texto",
+      "label": "Color del texto",
+      "default": "#2B2A30"
+    },
+    {
+      "type": "header",
+      "content": "Espaciado"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espacio superior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espacio inferior",
+      "min": 0,
+      "max": 160,
+      "step": 8,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB – Vídeo"
+    }
+  ]
+}
+{% endschema %}

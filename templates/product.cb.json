@@ -253,10 +253,15 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "video": {
+      "type": "cb-video",
+      "settings": {}
     }
   },
   "order": [
     "principal",
+    "video",
     "cinta",
     "bandas",
     "pasos",

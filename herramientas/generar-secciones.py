@@ -849,6 +849,37 @@ write("cb-producto", r"""
     "enabled_on": {"templates": ["product"]}
 })
 
+# ---------------------------------------------------------------- VÍDEO
+write("cb-video", r"""
+{%- render 'cb-section-style', section: section -%}
+{%- assign s = section.settings -%}
+<section class="cb-section cb-video">
+  <div class="cb-container">
+    <div class="cb-video__grid cb-reveal">
+      <div class="cb-video__media">
+        <video autoplay loop muted playsinline preload="metadata" poster="{{ 'cb-clip-poster.jpg' | asset_url }}" aria-label="{{ s.alt | escape }}">
+          <source src="{{ 'cb-clip.mp4' | asset_url }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="cb-video__body cb-align">
+        {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
+        <h2 class="cb-h2">{{ s.titulo }}</h2>
+        {%- if s.texto != blank -%}<div class="cb-body">{{ s.texto | newline_to_br }}</div>{%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+""", {
+    "name": "CB – Vídeo", "tag": "section", "class": "cb-wrap",
+    "settings": [
+        T("eyebrow", "Etiqueta superior", "Míralo en acción"),
+        IRT("titulo", "Título", "Se cuelga en <em>10 segundos</em> y tu gato no para"),
+        TA("texto", "Texto", "Se engancha en el borde de la puerta, sin herramientas ni agujeros. Ajusta la altura del ratón y deja que juegue."),
+        T("alt", "Descripción del vídeo (accesibilidad)", "Gato saltando para atrapar el ratón colgado de una puerta"),
+    ] + comunes(h=40, b=17, pt=48, pb=48, con_align=False),
+    "presets": [{"name": "CB – Vídeo"}]
+})
+
 # ---------------------------------------------------------------- FOOTER
 write("cb-footer", r"""
 {%- assign s = section.settings -%}
