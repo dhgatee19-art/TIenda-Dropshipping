@@ -182,7 +182,7 @@ write("cb-hero", r"""
         CHK("mostrar_precio", "Mostrar precio", True),
         T("boton_texto", "Texto del botón", "Lo quiero para mi gato"),
         URL("boton_url", "Enlace del botón", "Si lo dejas vacío, lleva a la página del producto."),
-        TA("ticks", "Ventajas bajo el botón (una por línea)", "Envío gratis con seguimiento\nSe instala en 1 minuto\nSin pilas ni enchufes"),
+        TA("ticks", "Ventajas bajo el botón (una por línea)", "Envío gratis con seguimiento\nSe instala en segundos\nSin pilas ni enchufes"),
         H("Etiqueta flotante"),
         CHK("mostrar_badge", "Mostrar etiqueta flotante", True),
         T("badge_emoji", "Emoji", "😼"),
@@ -241,7 +241,7 @@ write("cb-marquesina", r"""
     "blocks": [{"type": "texto", "name": "Frase", "settings": [T("texto", "Texto", "Envío gratis")]}],
     "presets": [{"name": "CB – Cinta animada", "blocks": [
         {"type": "texto", "settings": {"texto": "Envío gratis con seguimiento"}},
-        {"type": "texto", "settings": {"texto": "Se instala en 1 minuto"}},
+        {"type": "texto", "settings": {"texto": "Se instala en segundos"}},
         {"type": "texto", "settings": {"texto": "Tu gato juega solo"}},
         {"type": "texto", "settings": {"texto": "Sin pilas ni enchufes"}}]}]
 })
@@ -332,7 +332,7 @@ write("cb-pasos", r"""
     "name": "CB – Pasos", "tag": "section", "class": "cb-wrap", "max_blocks": 6,
     "settings": [
         T("eyebrow", "Etiqueta superior", "Así de fácil"),
-        IRT("titulo", "Título", "Listo para jugar en <em>1 minuto</em>"),
+        IRT("titulo", "Título", "Listo para jugar en <em>segundos</em>"),
         TA("texto", "Texto", "Sin herramientas, sin tornillos y sin agujeros en la pared."),
         RANGE("paso_titulo", "Tamaño del título de cada paso", 16, 34, 1, 23, "px"),
         T("nota", "Nota final (vacío = sin nota)", "Funciona mejor en marcos de puerta delgados"),
@@ -433,7 +433,7 @@ write("cb-galeria", r"""
     "blocks": [{"type": "foto", "name": "Foto", "settings": [IMG("imagen", "Imagen"), T("texto", "Texto sobre la foto (opcional)")]}],
     "presets": [{"name": "CB – Galería", "blocks": [
         {"type": "foto", "settings": {"texto": "¡Salto olímpico!"}},
-        {"type": "foto", "settings": {"texto": "Se instala en 1 minuto"}},
+        {"type": "foto", "settings": {"texto": "Se instala en segundos"}},
         {"type": "foto", "settings": {"texto": "Peluche suave"}},
         {"type": "foto", "settings": {"texto": "Cuerda elástica"}},
         {"type": "foto", "settings": {"texto": ""}}]}]
@@ -584,7 +584,7 @@ write("cb-faq", r"""
         {"type": "richtext", "id": "respuesta", "label": "Respuesta", "default": "<p>Respuesta.</p>"}]}],
     "presets": [{"name": "CB – Preguntas", "blocks": [
         {"type": "pregunta", "settings": {"pregunta": "¿Sirve para cualquier puerta?", "respuesta": "<p>El gancho está pensado para marcos de puerta delgados. En marcos gruesos puede quedar justo, así que te recomendamos medir el grosor del marco antes de comprar.</p>"}},
-        {"type": "pregunta", "settings": {"pregunta": "¿Necesito herramientas para instalarlo?", "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en un minuto.</p>"}},
+        {"type": "pregunta", "settings": {"pregunta": "¿Necesito herramientas para instalarlo?", "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en pocos segundos.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Es seguro para mi gato?", "respuesta": "<p>Úsalo siempre con tu gato supervisado y guárdalo cuando termine de jugar. Con el uso intenso la cuerda puede desgastarse, así que revísala de vez en cuando.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Puedo colgar otros juguetes?", "respuesta": "<p>Sí. En el otro extremo de la cuerda puedes colgar otros juguetes favoritos de tu gato.</p>"}},
         {"type": "pregunta", "settings": {"pregunta": "¿Cuánto tarda el envío?", "respuesta": "<p>El envío es gratis y con número de seguimiento: México 6-11 días hábiles, Chile 7-10, Colombia 8-16, Perú 8-16 y España 7-14.</p>"}},
@@ -656,7 +656,7 @@ write("cb-cta", r"""
         TA("texto", "Texto", "Diversión para él, tranquilidad para ti. Pídelo hoy y recíbelo en casa con envío gratis."),
         T("boton_texto", "Texto del botón", "Añadir al carrito"),
         T("agotado_texto", "Texto si está agotado", "Agotado"),
-        TA("garantias", "Garantías (una por línea)", "Envío gratis con seguimiento\nPago 100% seguro\nInstalación en 1 minuto"),
+        TA("garantias", "Garantías (una por línea)", "Envío gratis con seguimiento\nPago 100% seguro\nInstalación en segundos"),
         {"type": "color", "id": "color_tarjeta", "label": "Fondo de la tarjeta", "default": "#2B2A30"},
         {"type": "color", "id": "color_texto_tarjeta", "label": "Texto de la tarjeta", "default": "#FAF6F0"},
     ] + comunes(h=48, b=18, pt=64, pb=96),
@@ -822,7 +822,7 @@ write("cb-producto", r"""
         T("texto_descuento", "Texto de la etiqueta de descuento ([ahorro] = cantidad ahorrada)", "Ahorras [ahorro]"),
         H("Texto de venta"),
         TA("intro", "Introducción", "Cuélgalo del marco de una puerta y tu gato tendrá su propio ratón para saltar, perseguir y cazar… mientras tú haces tus cosas."),
-        TA("bullets", "Ventajas (una por línea)", "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en 1 minuto, sin herramientas"),
+        TA("bullets", "Ventajas (una por línea)", "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en segundos, sin herramientas"),
         H("Compra"),
         CHK("mostrar_stock", "Mostrar aviso de disponibilidad", True),
         T("stock_texto", "Texto de disponibilidad", "En stock"),
@@ -873,7 +873,7 @@ write("cb-video", r"""
     "name": "CB – Vídeo", "tag": "section", "class": "cb-wrap",
     "settings": [
         T("eyebrow", "Etiqueta superior", "Míralo en acción"),
-        IRT("titulo", "Título", "Se cuelga en <em>10 segundos</em> y tu gato no para"),
+        IRT("titulo", "Título", "Se cuelga en <em>segundos</em> y tu gato no para"),
         TA("texto", "Texto", "Se engancha en el borde de la puerta, sin herramientas ni agujeros. Ajusta la altura del ratón y deja que juegue."),
         T("alt", "Descripción del vídeo (accesibilidad)", "Gato saltando para atrapar el ratón colgado de una puerta"),
     ] + comunes(h=40, b=17, pt=48, pb=48, con_align=False),

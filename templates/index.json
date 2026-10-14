@@ -19,7 +19,7 @@
         "cb-marquesina-1": {
           "type": "texto",
           "settings": {
-            "texto": "Se instala en 1 minuto"
+            "texto": "Se instala en segundos"
           }
         },
         "cb-marquesina-2": {
@@ -141,7 +141,7 @@
         "cb-galeria-1": {
           "type": "foto",
           "settings": {
-            "texto": "Se instala en 1 minuto"
+            "texto": "Se instala en segundos"
           }
         },
         "cb-galeria-2": {
@@ -243,7 +243,7 @@
           "type": "pregunta",
           "settings": {
             "pregunta": "¿Necesito herramientas para instalarlo?",
-            "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en un minuto.</p>"
+            "respuesta": "<p>No. Solo tienes que enganchar el soporte en la parte de arriba del marco, comprobar que queda firme y ajustar la cuerda a la altura de tu gato. Se instala en pocos segundos.</p>"
           }
         },
         "cb-faq-2": {
