@@ -307,3 +307,8 @@
 .cb-video__media { border-radius: var(--cb-radio, 20px); overflow: hidden; aspect-ratio: 4 / 5; background: var(--cb-crema-2, #F3EADD); }
 .cb-video__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
 @media (max-width: 749px) { .cb-video__grid { grid-template-columns: minmax(0, 1fr); } .cb-video__media { max-width: 360px; margin: 0 auto; } .cb-video__body { text-align: center; } }
+
+/* Máximo 1 unidad por pedido: sin botones de cantidad en el carrito */
+.cart-quantity .quantity__button[name="plus"],
+.cart-quantity .quantity__button[name="minus"] { display: none; }
+.cart-quantity .quantity__input { pointer-events: none; border: 0; background: transparent; width: 3ch; text-align: center; }

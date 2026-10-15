@@ -48,7 +48,7 @@
         "plazos": "MX | México | 6-11 días hábiles\nCL | Chile | 7-10 días hábiles\nCO | Colombia | 8-16 días hábiles\nPE | Perú | 8-16 días hábiles\nES | España | 7-14 días hábiles",
         "plazo_formato": "Llega a [pais] en [dias] · Envío GRATIS con seguimiento",
         "plazo_defecto": "Envío GRATIS con seguimiento",
-        "mostrar_cantidad": true,
+        "mostrar_cantidad": false,
         "boton_texto": "Añadir al carrito",
         "agotado_texto": "Agotado",
         "mostrar_pago_rapido": false,

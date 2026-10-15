@@ -80,6 +80,26 @@
         });
       });
 
+      // Máximo 1 unidad por pedido: si ya está en el carrito, no se vuelve a añadir
+      var form = root.querySelector('form');
+      if (form && !form.dataset.cbUno) {
+        form.dataset.cbUno = '1';
+        form.addEventListener('submit', function (ev) {
+          if (form.dataset.cbOk) return;
+          ev.preventDefault();
+          var idInput = form.querySelector('input[name="id"]');
+          var id = idInput ? String(idInput.value) : '';
+          fetch('/cart.js', { headers: { Accept: 'application/json' } })
+            .then(function (r) { return r.json(); })
+            .then(function (c) {
+              var ya = c.items.some(function (i) { return String(i.variant_id) === id; });
+              if (ya) { window.location.href = '/cart'; }
+              else { form.dataset.cbOk = '1'; form.submit(); }
+            })
+            .catch(function () { form.dataset.cbOk = '1'; form.submit(); });
+        });
+      }
+
       // Variantes
       var dataEl = root.querySelector('[data-cb-variants]');
       if (!dataEl) return;
