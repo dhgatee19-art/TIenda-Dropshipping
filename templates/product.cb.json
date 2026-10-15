@@ -1,8 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "principal": {
       "type": "cb-producto",
-      "settings": {},
       "blocks": {
         "cb-producto-1": {
           "type": "desplegable",
@@ -17,16 +25,64 @@
             "titulo": "Importante: mide tu puerta",
             "texto": "<p>El gancho está pensado para marcos de puerta delgados; en marcos gruesos puede quedar justo. Úsalo siempre con tu gato supervisado y guárdalo al terminar de jugar.</p>"
           }
+        },
+        "estrellas": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         }
       },
       "block_order": [
+        "estrellas",
         "cb-producto-1",
         "cb-producto-2"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "🐾 Juguete interactivo para gatos",
+        "titulo_corto": "Catboing™ – Juguete colgante de puerta",
+        "mostrar_descuento": true,
+        "texto_descuento": "Ahorras [ahorro]",
+        "intro": "Cuélgalo del marco de una puerta y tu gato tendrá su propio ratón para saltar, perseguir y cazar… mientras tú haces tus cosas.",
+        "bullets": "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en segundos, sin herramientas",
+        "mostrar_stock": true,
+        "stock_texto": "En stock",
+        "plazos": "MX | México | 6-11 días hábiles\nCL | Chile | 7-10 días hábiles\nCO | Colombia | 8-16 días hábiles\nPE | Perú | 8-16 días hábiles\nES | España | 7-14 días hábiles",
+        "plazo_formato": "Llega a [pais] en [dias] · Envío GRATIS con seguimiento",
+        "plazo_defecto": "Envío GRATIS con seguimiento",
+        "mostrar_cantidad": true,
+        "boton_texto": "Añadir al carrito",
+        "agotado_texto": "Agotado",
+        "mostrar_pago_rapido": false,
+        "pago_texto": "💳 Paga con tarjeta de débito, crédito o PayPal",
+        "barra_movil": true,
+        "confianza": "Envío gratis\nPago seguro\nDevolución 14 días",
+        "mostrar_descripcion": true,
+        "titulo_descripcion": "Descripción completa",
+        "abrir_descripcion": false,
+        "heading_size": 40,
+        "body_size": 16,
+        "color_fondo": "#faf6f0",
+        "color_texto": "#2b2a30",
+        "padding_top": 40,
+        "padding_bottom": 72
+      }
+    },
+    "video": {
+      "type": "cb-video",
+      "settings": {
+        "eyebrow": "Míralo en acción",
+        "titulo": "Se cuelga en <em>segundos</em> y tu gato no para",
+        "texto": "Se engancha en el borde de la puerta, sin herramientas ni agujeros. Ajusta la altura del ratón y deja que juegue.",
+        "alt": "Gato saltando para atrapar el ratón colgado de una puerta",
+        "heading_size": 40,
+        "body_size": 17,
+        "color_fondo": "#faf6f0",
+        "color_texto": "#2b2a30",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
     },
     "cinta": {
       "type": "cb-marquesina",
-      "settings": {},
       "blocks": {
         "cb-marquesina-0": {
           "type": "texto",
@@ -65,13 +121,22 @@
         "cb-marquesina-2",
         "cb-marquesina-3",
         "cb-marquesina-4"
-      ]
+      ],
+      "settings": {
+        "velocidad": 34,
+        "tamano": 22,
+        "alto": 18,
+        "icono": "pata",
+        "color_icono": "#ff5c7a",
+        "inclinado": false,
+        "color_fondo": "#2b2a30",
+        "color_texto": "#faf6f0",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     },
     "bandas": {
       "type": "cb-bandas",
-      "settings": {
-        "padding_top": 88
-      },
       "blocks": {
         "cb-bandas-0": {
           "type": "banda",
@@ -102,11 +167,22 @@
         "cb-bandas-0",
         "cb-bandas-1",
         "cb-bandas-2"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Por qué les encanta",
+        "titulo": "Diseñado para el <em>cazador</em> que lleva dentro",
+        "banda_titulo": 38,
+        "text_align": "center",
+        "heading_size": 46,
+        "body_size": 18,
+        "color_fondo": "#faf6f0",
+        "color_texto": "#2b2a30",
+        "padding_top": 88,
+        "padding_bottom": 96
+      }
     },
     "pasos": {
       "type": "cb-pasos",
-      "settings": {},
       "blocks": {
         "cb-pasos-0": {
           "type": "paso",
@@ -137,13 +213,24 @@
         "cb-pasos-0",
         "cb-pasos-1",
         "cb-pasos-2"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Así de fácil",
+        "titulo": "Listo para jugar en <em>segundos</em>",
+        "texto": "Sin herramientas, sin tornillos y sin agujeros en la pared.",
+        "paso_titulo": 23,
+        "nota": "Funciona mejor en marcos de puerta delgados",
+        "text_align": "center",
+        "heading_size": 46,
+        "body_size": 18,
+        "color_fondo": "#f3eadd",
+        "color_texto": "#2b2a30",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "comparativa": {
       "type": "cb-comparativa",
-      "settings": {
-        "color_fondo": "#FAF6F0"
-      },
       "blocks": {
         "cb-comparativa-0": {
           "type": "fila",
@@ -187,14 +274,25 @@
         "cb-comparativa-1",
         "cb-comparativa-2",
         "cb-comparativa-3"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Compáralo",
+        "titulo": "¿Por qué <em>Catboing</em>?",
+        "texto": "",
+        "col_1": "Catboing",
+        "col_2": "Varita con pluma",
+        "col_3": "Juguete suelto",
+        "text_align": "center",
+        "heading_size": 46,
+        "body_size": 18,
+        "color_fondo": "#faf6f0",
+        "color_texto": "#2b2a30",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
     "faq": {
       "type": "cb-faq",
-      "settings": {
-        "color_fondo": "#F3EADD",
-        "boton_url": "/pages/contacto"
-      },
       "blocks": {
         "cb-faq-0": {
           "type": "pregunta",
@@ -246,17 +344,49 @@
         "cb-faq-3",
         "cb-faq-4",
         "cb-faq-5"
-      ]
+      ],
+      "settings": {
+        "eyebrow": "Dudas",
+        "titulo": "Preguntas <em>frecuentes</em>",
+        "texto": "¿No encuentras lo que buscas? Escríbenos y te respondemos encantados.",
+        "boton_texto": "Contactar",
+        "boton_url": "/pages/contacto",
+        "abrir_primera": true,
+        "ancla": "faq",
+        "text_align": "left",
+        "heading_size": 46,
+        "body_size": 16,
+        "color_fondo": "#f3eadd",
+        "color_texto": "#2b2a30",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
     },
-    "resenas": {
+    "1792024927e354592a": {
       "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_jTtKWw": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_jTtKWw"
+      ],
       "settings": {
         "include_margins": true
       }
     },
-    "video": {
-      "type": "cb-video",
-      "settings": {}
+    "nota_resenas": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<div style=\"background:#F3EADD;text-align:center;padding:28px 20px 0;font-size:14px;color:#2B2A30;opacity:.8\"><p style=\"margin:0;max-width:680px;margin-inline:auto\">Reseñas de compradores de este mismo juguete en otra plataforma. Las reseñas de clientes de Catboing se añadirán a medida que lleguen.</p></div>"
+      }
     }
   },
   "order": [
@@ -266,7 +396,8 @@
     "bandas",
     "pasos",
     "comparativa",
-    "resenas",
+    "nota_resenas",
+    "1792024927e354592a",
     "faq"
   ]
 }
