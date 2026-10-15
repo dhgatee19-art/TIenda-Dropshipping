@@ -106,3 +106,12 @@ Producto anterior (ahora DRAFT): CatGravity™ bebedero por gravedad
 - Fórmula: gancho con luz + problema reconocible → "Así que le busqué/pedí esto" → gato jugando → "Comenta GATO" (FB) / "Link en mi perfil" (TikTok/IG).
 - Clips originales sin texto en `videos/clips/` (ver LEEME.md); ganchos retocados en HD en `videos/ganchos-listos/`.
 - Aprendido: primer fotograma oscuro frena las vistas; prompts de vídeo por turnos y una sola acción; evitar "slowly"; contacto pata-piel falla.
+
+## Actualización (15-oct)
+- Correo de carrito abandonado activado (asunto propio, logo en `logo/catboing-logo.png`).
+- 3 productos antiguos (fuente de agua) archivados; solo queda el juguete colgante activo.
+- Texto de instalación unificado a "en segundos" (tema + ficha de producto).
+- Vídeo en bucle bajo el bloque de compra (sección `cb-video`).
+- Atajos de bio: catboing.com/tiktok y catboing.com/ig (redirecciones con utm).
+- Moneda base USD; mercados con moneda local (EUR, MXN, CLP, COP, PEN).
+- Pendiente (usuario): preguntar al vendedor si se pueden comprar 2 unidades por pedido; clips de Higgsfield de los ganchos con persona (imágenes `fotos-ia/v8-*`, `v9-*`, `v10-*`).
