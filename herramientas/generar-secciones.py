@@ -711,6 +711,13 @@ write("cb-producto", r"""
       <div class="cb-compra" data-cb-buy-zone>
         {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
         <h1 class="cb-h1" style="font-size: clamp(28px, 4vw, {{ s.heading_size }}px)">{{ s.titulo_corto | default: product.title }}</h1>
+        {%- if s.mostrar_valoracion and s.valoracion_nota != blank -%}
+          <div class="cb-compra__rating" role="img" aria-label="Valoración media {{ s.valoracion_nota }} de 5">
+            <span class="cb-stars" aria-hidden="true" style="--cb-rating: {{ s.valoracion_nota | times: 20 }}%"></span>
+            <strong>{{ s.valoracion_nota }}</strong>
+            {%- if s.valoracion_ventas != blank -%}<span class="cb-compra__rating-sep" aria-hidden="true">·</span><span>{{ s.valoracion_ventas }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
         {%- for block in section.blocks -%}
           {%- if block.type == '@app' -%}<div class="cb-compra__app">{% render block %}</div>{%- endif -%}
         {%- endfor -%}
@@ -820,6 +827,10 @@ write("cb-producto", r"""
         T("titulo_corto", "Título visible (vacío = título del catálogo)", "Catboing™ – Juguete colgante de puerta"),
         CHK("mostrar_descuento", "Mostrar etiqueta de descuento", True),
         T("texto_descuento", "Texto de la etiqueta de descuento ([ahorro] = cantidad ahorrada)", "Ahorras [ahorro]"),
+        H("Valoración y ventas"),
+        CHK("mostrar_valoracion", "Mostrar estrellas, valoración y ventas bajo el título", True),
+        T("valoracion_nota", "Valoración media (de 0 a 5, con punto decimal)", "4.8"),
+        T("valoracion_ventas", "Texto de ventas (vacío = oculto)", "266 vendidos en todo el mundo"),
         H("Texto de venta"),
         TA("intro", "Introducción", "Cuélgalo del marco de una puerta y tu gato tendrá su propio ratón para saltar, perseguir y cazar… mientras tú haces tus cosas."),
         TA("bullets", "Ventajas (una por línea)", "Juega solo, sin que tengas que estar con él\nEl rebote elástico mantiene el juego interesante\nSe instala en segundos, sin herramientas"),

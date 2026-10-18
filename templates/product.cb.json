@@ -25,14 +25,9 @@
             "titulo": "Importante: mide tu puerta",
             "texto": "<p>El gancho está pensado para marcos de puerta delgados; en marcos gruesos puede quedar justo. Úsalo siempre con tu gato supervisado y guárdalo al terminar de jugar.</p>"
           }
-        },
-        "estrellas": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         }
       },
       "block_order": [
-        "estrellas",
         "cb-producto-1",
         "cb-producto-2"
       ],

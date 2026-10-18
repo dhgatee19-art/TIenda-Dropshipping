@@ -312,3 +312,10 @@
 .cart-quantity .quantity__button[name="plus"],
 .cart-quantity .quantity__button[name="minus"] { display: none; }
 .cart-quantity .quantity__input { pointer-events: none; border: 0; background: transparent; width: 3ch; text-align: center; }
+
+/* Valoración y ventas bajo el título del producto */
+.cb-stars { display: inline-block; font-size: 20px; line-height: 1; letter-spacing: 2px; background: linear-gradient(90deg, #FFB400 var(--cb-rating, 100%), #E3DDD2 var(--cb-rating, 100%)); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.cb-stars::before { content: "★★★★★"; }
+.cb-compra__rating { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; font-size: 14px; }
+.cb-compra__rating strong { font-weight: 800; }
+.cb-compra__rating-sep { opacity: .5; }

@@ -44,6 +44,13 @@
       <div class="cb-compra" data-cb-buy-zone>
         {%- if s.eyebrow != blank -%}<span class="cb-eyebrow">{{ s.eyebrow }}</span>{%- endif -%}
         <h1 class="cb-h1" style="font-size: clamp(28px, 4vw, {{ s.heading_size }}px)">{{ s.titulo_corto | default: product.title }}</h1>
+        {%- if s.mostrar_valoracion and s.valoracion_nota != blank -%}
+          <div class="cb-compra__rating" role="img" aria-label="Valoración media {{ s.valoracion_nota }} de 5">
+            <span class="cb-stars" aria-hidden="true" style="--cb-rating: {{ s.valoracion_nota | times: 20 }}%"></span>
+            <strong>{{ s.valoracion_nota }}</strong>
+            {%- if s.valoracion_ventas != blank -%}<span class="cb-compra__rating-sep" aria-hidden="true">·</span><span>{{ s.valoracion_ventas }}</span>{%- endif -%}
+          </div>
+        {%- endif -%}
         {%- for block in section.blocks -%}
           {%- if block.type == '@app' -%}<div class="cb-compra__app">{% render block %}</div>{%- endif -%}
         {%- endfor -%}
@@ -180,6 +187,28 @@
       "id": "texto_descuento",
       "label": "Texto de la etiqueta de descuento ([ahorro] = cantidad ahorrada)",
       "default": "Ahorras [ahorro]"
+    },
+    {
+      "type": "header",
+      "content": "Valoración y ventas"
+    },
+    {
+      "type": "checkbox",
+      "id": "mostrar_valoracion",
+      "label": "Mostrar estrellas, valoración y ventas bajo el título",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "valoracion_nota",
+      "label": "Valoración media (de 0 a 5, con punto decimal)",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "valoracion_ventas",
+      "label": "Texto de ventas (vacío = oculto)",
+      "default": "266 vendidos en todo el mundo"
     },
     {
       "type": "header",
